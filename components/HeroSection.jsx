@@ -6,8 +6,16 @@ const programInfo = {
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full bg-[#120404] text-white overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14 lg:py-20 lg:px-8">
+    <section className="relative w-full bg-[#120404] text-white overflow-visible pt-12">
+      {/* Imagen de la presentadora posicionada respecto a la sección (sobra por encima) */}
+      <img
+        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+        alt="Presentadora"
+        className="hidden md:block absolute top-0 right-12 transform -translate-y-12 rounded-full object-cover shadow-lg ring-4 ring-[#120404]"
+        style={{ width: '220px', height: '220px', border: '4px solid rgba(18,4,4,0)' }}
+      />
+
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-10 lg:py-16 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-start gap-8">
           {/* Columna izquierda: logo y caja "En la mira" */}
           <div className="lg:col-span-6">
@@ -33,15 +41,7 @@ export default function HeroSection() {
           </div>
 
           {/* Columna derecha: imagen circular superpuesta + reproductor */}
-          <div className="lg:col-span-6 relative flex items-start justify-end">
-            {/* Imagen de la presentadora — posicionada para sobresalir del borde superior */}
-            <img
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
-              alt="Presentadora"
-              className="hidden sm:block absolute right-6 -top-16 h-40 w-40 rounded-full object-cover ring-4 ring-[#120404] shadow-lg"
-              style={{ border: '4px solid rgba(18,4,4,0.0)' }}
-            />
-
+          <div className="lg:col-span-6 flex items-start justify-end">
             {/* Reproductor de video — integrado en el fondo oscuro */}
             <div className="w-full max-w-2xl">
               <div className="relative overflow-hidden rounded-2xl border border-red-900/70 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
