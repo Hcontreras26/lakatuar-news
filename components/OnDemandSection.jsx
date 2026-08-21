@@ -1,41 +1,41 @@
 // Sección de videos bajo demanda (VOD).
-// Utiliza un array de mock data y .map() para renderizar tarjetas DRY.
+// Mock data y componente de presentación.
 const vodItems = [
   {
     id: 1,
-    title: "Entrevista con líderes locales: retos y soluciones",
-    duration: "23:10",
-    thumb: "https://images.unsplash.com/photo-1587825140708-3c5d7f1f5c9b?auto=format&fit=crop&w=800&q=80",
+    title: 'Entrevista con líderes locales: retos y soluciones',
+    duration: '23:10',
+    thumb: 'https://images.unsplash.com/photo-1587825140708-3c5d7f1f5c9b?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 2,
-    title: "Reporte especial: economía en transición",
-    duration: "18:45",
-    thumb: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    title: 'Reporte especial: economía en transición',
+    duration: '18:45',
+    thumb: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 3,
-    title: "Cobertura: cultura y jóvenes creadores",
-    duration: "12:33",
-    thumb: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=800&q=80",
+    title: 'Cobertura: cultura y jóvenes creadores',
+    duration: '12:33',
+    thumb: 'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 4,
-    title: "Análisis: sistema de transporte y ciudadanía",
-    duration: "29:02",
-    thumb: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80",
+    title: 'Análisis: sistema de transporte y ciudadanía',
+    duration: '29:02',
+    thumb: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 5,
-    title: "Especial: ciencia local y proyectos comunitarios",
-    duration: "9:50",
-    thumb: "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=800&q=80",
+    title: 'Especial: ciencia local y proyectos comunitarios',
+    duration: '9:50',
+    thumb: 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=800&q=80',
   },
-]
+];
 
 function VideoCard({ item }) {
   return (
-    <article className="group overflow-hidden rounded-xl border border-red-900/70 bg-[#170707] transition hover:scale-[1.01]">
+    <article className="group overflow-hidden rounded-xl border border-red-900/70 bg-[#170707] transition-transform hover:scale-[1.01]">
       <div className="relative aspect-video w-full overflow-hidden bg-black">
         <img src={item.thumb} alt={item.title} className="h-full w-full object-cover" />
 
@@ -44,9 +44,7 @@ function VideoCard({ item }) {
         </span>
 
         <div className="absolute inset-0 flex items-end justify-start p-3">
-          <div className="rounded bg-black/40 px-3 py-1 text-sm font-semibold text-white backdrop-blur-sm">
-            Ver ahora
-          </div>
+          <div className="rounded bg-black/40 px-3 py-1 text-sm font-semibold text-white backdrop-blur-sm">Ver ahora</div>
         </div>
       </div>
 
@@ -54,7 +52,7 @@ function VideoCard({ item }) {
         <h3 className="text-sm font-bold leading-6 text-zinc-100">{item.title}</h3>
       </div>
     </article>
-  )
+  );
 }
 
 export default function OnDemandSection() {
@@ -75,8 +73,7 @@ export default function OnDemandSection() {
         </div>
       </div>
     </section>
-  )
-
+  );
 }
 
 
