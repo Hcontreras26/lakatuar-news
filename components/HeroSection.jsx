@@ -11,8 +11,8 @@ export default function HeroSection() {
       <img
         src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
         alt="Presentadora"
-        className="hidden md:block absolute top-0 right-12 transform -translate-y-12 rounded-full object-cover shadow-lg ring-4 ring-[#120404]"
-        style={{ width: '220px', height: '220px', border: '4px solid rgba(18,4,4,0)' }}
+        className="hidden sm:block absolute -top-6 right-12 md:right-20 z-30 transform -translate-y-12 rounded-full object-cover shadow-2xl"
+        style={{ width: '240px', height: '240px', border: '4px solid rgba(18,4,4,0)' }}
       />
 
       <div className="mx-auto max-w-7xl px-4 py-6 sm:py-10 lg:py-16 lg:px-8">
