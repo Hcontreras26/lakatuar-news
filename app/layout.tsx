@@ -17,7 +17,11 @@ export const metadata: Metadata = {
   description: "Portal de noticias multimedia con contenido en vivo, on demand y análisis diario.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps): React.JSX.Element {
   return (
     <html
       lang="es"
