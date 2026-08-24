@@ -1,4 +1,4 @@
-export type SocialIconType = "facebook" | "x" | "youtube" | "tiktok" | "whatsapp";
+export type SocialIconType = "facebook" | "x" | "youtube" | "tiktok" | "whatsapp" | "instagram";
 
 export interface NavItem {
   label: string;
@@ -29,23 +29,70 @@ export interface VideoItem {
   duration: string;
   thumb: string;
   url?: string;
-}
-
-export interface NewsItem {
-  id: number | string;
-  tag: string;
-  title: string;
-  image: string;
-  date: string;
-  summary?: string;
-  url?: string;
-}
-
-export interface SidebarStory {
-  id: number | string;
-  title: string;
-  date: string;
   category?: string;
+  tag?: string;
+}
+
+export interface InstagramPost {
+  id: number | string;
+  headline: string;
+  tag?: string;
+  imageUrl: string;
+  authorUsername: string;
+  authorAvatar?: string;
+  timeAgo: string;
+  likes?: string | number;
+  comments?: string | number;
+  postUrl?: string;
+}
+
+export interface TweetQuote {
+  authorName: string;
+  authorHandle: string;
+  authorAvatar?: string;
+  isVerified?: boolean;
+  translatedText?: string;
+  text: string;
+  courtDetails?: string;
+  timestamp: string;
+}
+
+export interface TweetMedia {
+  type: "video" | "image";
+  thumbnailUrl?: string;
+  duration?: string;
+  guestName?: string;
+  guestTitle?: string;
+  presenterName?: string;
+  showTitle?: string;
+  hasQrCode?: boolean;
+}
+
+export interface TweetPost {
+  id: number | string;
+  authorName: string;
+  authorHandle: string;
+  authorAvatar?: string;
+  isVerified?: boolean;
+  timeAgo: string;
+  text: string;
+  paragraphs?: string[];
+  hashtags?: string[];
+  quote?: TweetQuote;
+  media?: TweetMedia;
+  stats: {
+    replies: string | number;
+    reposts: string | number;
+    likes: string | number;
+    views: string | number;
+  };
+}
+
+export interface TopStoryArticle {
+  id: number | string;
+  title: string;
+  date: string;
+  thumbnail: string;
   url?: string;
 }
 
@@ -55,6 +102,16 @@ export interface MainStory {
   image: string;
   summary: string;
   badge?: string;
+  category?: string;
+  url?: string;
+}
+
+export interface SidebarStory {
+  id: number | string;
+  title: string;
+  date: string;
+  category?: string;
+  thumbnail?: string;
   url?: string;
 }
 
