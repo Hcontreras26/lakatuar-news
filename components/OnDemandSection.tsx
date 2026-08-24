@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import type { VideoItem } from "@/types";
 
 export interface VideoCardProps {
@@ -50,14 +51,20 @@ export function VideoCard({ item, className = "" }: VideoCardProps): React.JSX.E
   return (
     <article className={`group overflow-hidden rounded-xl border border-red-900/70 bg-[#170707] transition-transform hover:scale-[1.01] ${className}`.trim()}>
       <div className="relative aspect-video w-full overflow-hidden bg-black">
-        <img src={item.thumb} alt={item.title} className="h-full w-full object-cover" />
+        <Image
+          src={item.thumb}
+          alt={item.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+          className="object-cover"
+        />
 
-        <span className="absolute left-3 top-3 rounded-full bg-red-600 px-2.5 py-1 text-[11px] font-semibold uppercase text-white">
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-red-600 px-2.5 py-1 text-[11px] font-semibold uppercase text-white shadow-md">
           {item.duration}
         </span>
 
-        <div className="absolute inset-0 flex items-end justify-start p-3">
-          <div className="rounded bg-black/40 px-3 py-1 text-sm font-semibold text-white backdrop-blur-sm">
+        <div className="absolute inset-0 z-10 flex items-end justify-start p-3">
+          <div className="rounded bg-black/50 px-3 py-1 text-sm font-semibold text-white backdrop-blur-sm">
             Ver ahora
           </div>
         </div>
@@ -77,7 +84,11 @@ export default function OnDemandSection({
   className = "",
 }: OnDemandSectionProps): React.JSX.Element {
   return (
-    <section id="vod" className={`bg-[#0f0202] py-12 text-white sm:py-16 ${className}`.trim()}>
+    <section
+      id="vod"
+      aria-label="Videos bajo demanda"
+      className={`relative overflow-hidden bg-gradient-to-b from-[#340104] via-[#1e0204] to-[#120404] py-12 text-white sm:py-16 ${className}`.trim()}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center justify-between">
           <div>

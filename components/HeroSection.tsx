@@ -49,7 +49,7 @@ export default function HeroSection({
 
       <div className="relative mx-auto max-w-7xl px-4 pt-8 pb-10 sm:px-6 sm:pt-10 sm:pb-14 lg:px-8 lg:pt-16 lg:pb-16">
         <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-6">
-          
+
           {/* Bloque Informativo */}
           <div className="z-10 flex flex-col items-start lg:col-span-5">
             <div>
@@ -62,10 +62,10 @@ export default function HeroSection({
             </div>
 
             <div className="mt-8 sm:mt-10 lg:mt-16">
-              <h2 className="text-xl font-extrabold uppercase tracking-thin text-white sm:text-2xl lg:text-3xl">
+              <h2 className="text-xl font-bold uppercase tracking-thin text-white sm:text-2xl lg:text-3xl">
                 {programInfo.title}
               </h2>
-              <p className="mt-8 max-w-md text-xs font-normal leading-relaxed text-zinc-100-95 sm:text-base">
+              <p className="mt-8 max-w-md text-xs font-normal leading-relaxed text-zinc-100-95 sm:text-[18px]">
                 {programDescription}
               </p>
             </div>
@@ -73,8 +73,8 @@ export default function HeroSection({
 
           {/* Bloque Multimedia */}
           <div className="relative flex flex-col justify-start lg:col-span-7">
-            
-            {/* Imagen de la presentadora con proporciones naturales intactas */}
+
+            {/* Imagen de la presentadora*/}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -top-16 -right-2 z-0 flex justify-end sm:-top-24 sm:-right-6 md:-right-10 lg:-top-32 lg:-right-20 xl:-top-36 xl:-right-28 2xl:-right-36"
@@ -90,7 +90,7 @@ export default function HeroSection({
             </div>
 
             {/* Miniatura del en vivo */}
-            <div className="relative z-10 mt-8 w-full max-w-sm overflow-hidden bg-black/90 shadow-2xl sm:mt-10 sm:max-w-md lg:mt-[175px] lg:max-w-[85%] rounded-sm">
+            <div className="relative z-10 mt-10 w-full max-w-md overflow-hidden rounded-sm bg-black/90 shadow-2xl lg:mt-[175px] lg:max-w-[85%]">
               <div className="relative aspect-video w-full overflow-hidden">
                 <Image
                   src={thumbnailImage}

@@ -71,7 +71,7 @@ export default function Header({
   className = "",
 }: HeaderProps): React.JSX.Element {
   return (
-    <header className={`sticky top-0 z-50 border-b border-red-900/60 bg-[#120404]/95 backdrop-blur-sm ${className}`.trim()}>
+    <header className={`sticky top-0 z-50 bg-[#120404]/95 backdrop-blur-sm ${className}`.trim()}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <nav className="flex flex-1 items-center justify-start gap-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-200 sm:gap-5 md:gap-7">
           {navItems.map((item) => (
