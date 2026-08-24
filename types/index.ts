@@ -33,6 +33,16 @@ export interface VideoItem {
   tag?: string;
 }
 
+export interface NewsItem {
+  id: number | string;
+  tag: string;
+  title: string;
+  image: string;
+  date: string;
+  summary?: string;
+  url?: string;
+}
+
 export interface InstagramPost {
   id: number | string;
   headline: string;
