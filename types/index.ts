@@ -14,10 +14,12 @@ export interface SocialLink {
 export interface ProgramInfo {
   title: string;
   schedule: string;
+  description?: string;
   badge?: string;
   category?: string;
   liveUrl?: string;
   imageUrl?: string;
+  presenterImageUrl?: string;
   isLive?: boolean;
 }
 

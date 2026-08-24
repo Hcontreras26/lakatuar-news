@@ -34,3 +34,9 @@ img {
   display: block;
   max-width: 100%;
 }
+
+@utility mask-gradient-b {
+  mask-image: linear-gradient(to bottom, black 45%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 85%);
+}
+
