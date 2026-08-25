@@ -57,15 +57,17 @@ const defaultVodItems: VideoItem[] = [
 ];
 
 export default function OnDemandSection({
-  items = defaultVodItems,
+  items,
   title = "ON Demand",
   className = "",
 }: OnDemandSectionProps): React.JSX.Element {
+  const displayItems = items && items.length > 0 ? items : defaultVodItems;
+
   return (
     <section
       id="vod"
       aria-label="Videos bajo demanda"
-      className={`relative overflow-hidden bg-gradient-to-b from-[#340104] via-[#1e0204] to-[#120404] py-10 text-white sm:py-14 border-t border-red-950 ${className}`.trim()}
+      className={`relative overflow-hidden bg-gradient-to-b from-[#340104] via-[#1e0204] to-[#120404] py-10 text-white sm:py-14 ${className}`.trim()}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
@@ -75,7 +77,7 @@ export default function OnDemandSection({
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item) => (
+          {displayItems.map((item) => (
             <VideoCard key={item.id} item={item} />
           ))}
         </div>

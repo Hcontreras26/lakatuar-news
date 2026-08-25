@@ -6,9 +6,11 @@ import OnDemandSection from "@/components/sections/OnDemandSection";
 import InstagramSection from "@/components/sections/InstagramSection";
 import TwitterFeedSection from "@/components/sections/TwitterFeedSection";
 import TopStoriesSection from "@/components/sections/TopStoriesSection";
+import { getLatestYouTubeVideosFromRSS } from "@/lib/youtube";
 
+export default async function Home(): Promise<React.JSX.Element> {
+  const latestVideos = await getLatestYouTubeVideosFromRSS();
 
-export default function Home(): React.JSX.Element {
   return (
     <main className="min-h-screen bg-[#120404] text-white">
       {/* 1. Encabezado de Navegación */}
@@ -18,7 +20,7 @@ export default function Home(): React.JSX.Element {
       <HeroSection />
 
       {/* 3. Sección ON Demand / VOD */}
-      <OnDemandSection />
+      <OnDemandSection items={latestVideos} />
 
       {/* 4. Sección de Publicaciones de Instagram */}
       <InstagramSection />
