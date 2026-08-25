@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import type { FooterLink } from "@/types";
 
 export interface FooterProps {
@@ -12,15 +13,15 @@ export interface FooterProps {
 }
 
 const defaultNavLinks: FooterLink[] = [
-  { label: "Inicio", href: "#" },
-  { label: "Últimas Noticias", href: "#noticias" },
-  { label: "Análisis", href: "#analisis" },
-  { label: "Opinión", href: "#opinion" },
-  { label: "Venezuela", href: "#venezuela" },
-  { label: "Internacional", href: "#internacional" },
-  { label: "Política", href: "#politica" },
-  { label: "Videos", href: "#vod" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "/" },
+  { label: "Últimas Noticias", href: "/#noticias" },
+  { label: "Análisis", href: "/#analisis" },
+  { label: "Opinión", href: "/#opinion" },
+  { label: "Venezuela", href: "/#venezuela" },
+  { label: "Internacional", href: "/#internacional" },
+  { label: "Política", href: "/#politica" },
+  { label: "Videos", href: "/#vod" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 const defaultSocials = [
@@ -50,8 +51,8 @@ export default function Footer({
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10">
           {/* Logo Circular Rojo LA KATUAR NEWS */}
           <div className="flex-shrink-0">
-            <a
-              href="#"
+            <Link
+              href="/"
               aria-label="Ir al inicio de La Katuar News"
               className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-red-600 p-2 text-center shadow-lg transition-transform hover:scale-105 sm:h-24 sm:w-24"
             >
@@ -61,7 +62,7 @@ export default function Footer({
               <span className="text-[10px] font-bold leading-tight tracking-wider text-white/90 uppercase sm:text-xs">
                 {brandSubname}
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Bloque de 4 Líneas Informativas y Enlaces */}
@@ -76,21 +77,35 @@ export default function Footer({
               aria-label="Navegación del pie de página"
               className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-zinc-300 md:justify-start"
             >
-              {navLinks.map((link, idx) => (
-                <React.Fragment key={link.label}>
-                  <a
-                    href={link.href}
-                    className="transition-colors hover:text-red-400 hover:underline"
-                  >
-                    {link.label}
-                  </a>
-                  {idx < navLinks.length - 1 && (
-                    <span aria-hidden="true" className="text-zinc-600">
-                      |
-                    </span>
-                  )}
-                </React.Fragment>
-              ))}
+              {navLinks.map((link, idx) => {
+                const isExternal = link.href.startsWith("http");
+                return (
+                  <React.Fragment key={link.label}>
+                    {isExternal ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-red-400 hover:underline"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="transition-colors hover:text-red-400 hover:underline"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                    {idx < navLinks.length - 1 && (
+                      <span aria-hidden="true" className="text-zinc-600">
+                        |
+                      </span>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </nav>
 
             {/* Línea 3: Enlaces a Redes Sociales separadas por viñetas (·) */}
@@ -123,21 +138,21 @@ export default function Footer({
               <span aria-hidden="true" className="text-zinc-700">
                 -
               </span>
-              <a
-                href="#privacidad"
+              <Link
+                href="/privacidad"
                 className="transition-colors hover:text-zinc-300 hover:underline"
               >
                 Política de Privacidad
-              </a>
+              </Link>
               <span aria-hidden="true" className="text-zinc-700">
                 ·
               </span>
-              <a
-                href="#terminos"
+              <Link
+                href="/terminos"
                 className="transition-colors hover:text-zinc-300 hover:underline"
               >
                 Términos y Condiciones
-              </a>
+              </Link>
             </div>
           </div>
         </div>

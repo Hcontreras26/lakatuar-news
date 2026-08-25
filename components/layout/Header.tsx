@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import type { NavItem, SocialLink, SocialIconType } from "@/types";
 
 export interface SocialIconProps {
@@ -17,20 +18,21 @@ export interface HeaderProps {
 }
 
 const defaultNavItems: NavItem[] = [
-  { label: "Lo último", href: "#ultimas" },
-  { label: "Noticias", href: "#noticias" },
-  { label: "En vivo", href: "#en-vivo" },
-  { label: "Programas", href: "#programas" },
-  { label: "Contactos", href: "#contactos" },
+  { label: "Inicio", href: "/" },
+  { label: "Lo último", href: "/#ultimas" },
+  { label: "Noticias", href: "/#noticias" },
+  { label: "En vivo", href: "/#en-vivo" },
+  { label: "Programas", href: "/#programas" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 const defaultSocialLinks: SocialLink[] = [
-  { name: "Facebook", href: "#", icon: "facebook" },
-  { name: "X", href: "#", icon: "x" },
-  { name: "YouTube", href: "#", icon: "youtube" },
-  { name: "TikTok", href: "#", icon: "tiktok" },
-  { name: "WhatsApp", href: "#", icon: "whatsapp" },
-  { name: "Instagram", href: "#", icon: "instagram" },
+  { name: "YouTube", href: "https://youtube.com", icon: "youtube" },
+  { name: "Instagram", href: "https://instagram.com/la_katuar", icon: "instagram" },
+  { name: "X", href: "https://x.com/la_katuar", icon: "x" },
+  { name: "TikTok", href: "https://tiktok.com", icon: "tiktok" },
+  { name: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  { name: "WhatsApp", href: "https://whatsapp.com", icon: "whatsapp" },
 ];
 
 export function SocialIcon({ type, className = "h-4 w-4 fill-current" }: SocialIconProps): React.JSX.Element | null {
@@ -120,8 +122,8 @@ export default function Header({
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-6">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="flex items-center gap-2.5 group transition-opacity hover:opacity-90"
               aria-label={`${brandName} ${brandSubname} - Inicio`}
             >
@@ -136,21 +138,34 @@ export default function Header({
                   {brandSubname}
                 </span>
               </div>
-            </a>
+            </Link>
 
             <nav
               aria-label="Navegación principal"
               className="hidden md:flex items-center gap-5 lg:gap-7 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-200"
             >
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="transition-colors duration-200 hover:text-red-400"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isExternal = item.href.startsWith("http");
+                return isExternal ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors duration-200 hover:text-red-400"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="transition-colors duration-200 hover:text-red-400"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
@@ -160,6 +175,8 @@ export default function Header({
                 <a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.name}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-red-900/70 bg-[#1b0707] text-zinc-200 transition duration-200 hover:border-red-500 hover:text-red-400"
                 >
@@ -222,8 +239,8 @@ export default function Header({
       >
         <div>
           <div className="flex items-center justify-between pb-5 border-b border-red-950/70">
-            <a
-              href="#"
+            <Link
+              href="/"
               onClick={closeMenu}
               className="flex items-center gap-2.5"
             >
@@ -238,7 +255,7 @@ export default function Header({
                   {brandSubname}
                 </span>
               </div>
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -263,26 +280,50 @@ export default function Header({
             aria-label="Navegación móvil"
             className="mt-6 flex flex-col space-y-2"
           >
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={closeMenu}
-                className="group flex items-center justify-between rounded-lg px-3.5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-200 transition-all duration-200 hover:bg-red-950/50 hover:text-red-400 hover:pl-5"
-              >
-                <span>{item.label}</span>
-                <svg
-                  className="h-4 w-4 text-red-700/60 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-red-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  aria-hidden="true"
+            {navItems.map((item) => {
+              const isExternal = item.href.startsWith("http");
+              return isExternal ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="group flex items-center justify-between rounded-lg px-3.5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-200 transition-all duration-200 hover:bg-red-950/50 hover:text-red-400 hover:pl-5"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            ))}
+                  <span>{item.label}</span>
+                  <svg
+                    className="h-4 w-4 text-red-700/60 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-red-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={closeMenu}
+                  className="group flex items-center justify-between rounded-lg px-3.5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-200 transition-all duration-200 hover:bg-red-950/50 hover:text-red-400 hover:pl-5"
+                >
+                  <span>{item.label}</span>
+                  <svg
+                    className="h-4 w-4 text-red-700/60 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-red-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -295,6 +336,8 @@ export default function Header({
               <a
                 key={social.name}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.name}
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-red-900/70 bg-[#1b0707] text-zinc-200 transition duration-200 hover:border-red-500 hover:text-red-400"
               >
