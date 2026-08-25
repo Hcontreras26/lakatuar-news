@@ -46,9 +46,9 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
         </div>
 
         {/* Cintillo En La Mira en la parte inferior de la imagen */}
-        <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-r from-[#290204] via-black to-[#290204] px-3 py-1 border-t border-red-900/40">
+        <div className="absolute inset-x-0 -bottom-px z-10 bg-gradient-to-r from-[#290204] via-black to-[#290204] px-3 py-1 border-t border-red-900/40">
           <div className="flex items-center gap-1.5">
-            <span className="rounded bg-red-600 px-1 py-0.2 text-[7px] font-black uppercase text-white">
+            <span className="rounded bg-red-600 px-1 py-0.5 text-[7px] font-black uppercase text-white">
               EN LA
             </span>
             <span className="text-[10px] font-black uppercase tracking-wider text-white">
@@ -62,8 +62,8 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
       </div>
 
       {/* Título del Video */}
-      <div className="p-3.5">
-        <h3 className="line-clamp-2 text-sm font-black uppercase leading-snug tracking-tight text-zinc-100 group-hover:text-red-400 transition-colors">
+      <div className="relative -mt-px bg-[#150406] p-3.5">
+        <h3 className="line-clamp-2 text-sm font-black uppercase leading-snug tracking-tight text-zinc-100 transition-colors group-hover:text-red-400">
           {item.title}
         </h3>
       </div>
@@ -73,7 +73,7 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
   if (item.url) {
     return (
       <article
-        className={`group relative block overflow-hidden rounded-xl border border-red-900/60 bg-[#150406] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-600 hover:shadow-xl ${className}`.trim()}
+        className={`group relative block overflow-hidden rounded-xl border border-red-900/30 bg-[#150406] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-600/50 hover:shadow-xl ${className}`.trim()}
       >
         <a
           href={item.url}
@@ -90,7 +90,7 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-xl border border-red-900/60 bg-[#150406] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-600 hover:shadow-xl ${className}`.trim()}
+      className={`group relative overflow-hidden rounded-xl border border-red-900/30 bg-[#150406] shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-600/50 hover:shadow-xl ${className}`.trim()}
     >
       {content}
     </article>
