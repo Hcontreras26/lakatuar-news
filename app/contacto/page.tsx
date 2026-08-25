@@ -9,257 +9,299 @@ import DenunciasBanner from "@/components/ui/DenunciasBanner";
 export const metadata: Metadata = {
   title: "Contacto y Denuncias | LA KATUAR NEWS",
   description:
-    "Comunícate con el equipo editorial de La Katuar News. Envío seguro de denuncias ciudadanas, notas de prensa y alianzas comerciales con Jessica Vallenilla.",
+    "Canal oficial de contacto y denuncias confidenciales de La Katuar News. Periodismo de investigación y alianzas.",
 };
 
-const directChannels = [
+interface DirectChannel {
+  readonly title: string;
+  readonly category: string;
+  readonly description: string;
+  readonly contactText: string;
+  readonly contactHref: string;
+  readonly icon: React.JSX.Element;
+}
+
+interface SocialLink {
+  readonly name: string;
+  readonly href: string;
+  readonly icon: React.JSX.Element;
+}
+
+interface FAQItem {
+  readonly question: string;
+  readonly answer: string;
+}
+
+const DIRECT_CHANNELS: readonly DirectChannel[] = [
   {
-    title: "Canal de Denuncias Confidenciales",
-    badge: "100% Confidencial",
-    badgeColor: "bg-red-600 text-white",
-    description:
-      "Línea protegida para envío de información sensible, documentos, audios y videos con estricta reserva de la fuente.",
-    contactText: "+1 (786) 000-KATUAR / WhatsApp",
-    contactHref: "https://whatsapp.com",
+    title: "Denuncias Confidenciales",
+    category: "Línea Segura",
+    description: "Recepción de documentos, audios y material sensible bajo reserva de fuente.",
+    contactText: "+1 (786) 000-KATUAR",
+    contactHref: "https://wa.me/17860000000",
     icon: (
-      <svg className="h-6 w-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-        />
+      <svg className="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
       </svg>
     ),
   },
   {
-    title: "Sala de Redacción & Prensa",
-    badge: "Coberturas",
-    badgeColor: "bg-red-950 text-red-300 border border-red-800/40",
-    description:
-      "Para comunicados oficiales, notas de prensa, sugerencias de temas y contacto con el equipo de periodistas.",
+    title: "Redacción y Prensa",
+    category: "Editorial",
+    description: "Comunicados oficiales, notas de prensa y coberturas de actualidad.",
     contactText: "redaccion@lakatuar.com",
     contactHref: "mailto:redaccion@lakatuar.com",
     icon: (
-      <svg className="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-        />
+      <svg className="h-5 w-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
       </svg>
     ),
   },
   {
-    title: "Publicidad & Alianzas Comerciales",
-    badge: "Sponsorships",
-    badgeColor: "bg-zinc-900 text-zinc-300 border border-zinc-700/50",
-    description:
-      "Patrocinios en el programa 'En La Mira', menciones publicitarias, pautas en el portal web y campañas multiplataforma.",
+    title: "Comercial y Patrocinios",
+    category: "Publicidad",
+    description: "Pautas publicitarias en portal web y en el programa en vivo 'En La Mira'.",
     contactText: "comercial@lakatuar.com",
     contactHref: "mailto:comercial@lakatuar.com",
     icon: (
-      <svg className="h-6 w-6 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
-        />
+      <svg className="h-5 w-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
       </svg>
     ),
   },
 ];
 
-const faqs = [
+const SOCIAL_NETWORKS: readonly SocialLink[] = [
   {
-    q: "¿Cómo garantizan el anonimato de las fuentes periodísticas?",
-    a: "En La Katuar News protegemos la identidad de nuestras fuentes bajo el principio constitucional y deontológico del secreto profesional periodístico. Si marcas la opción de anonimato, tus datos identificativos no serán publicados ni compartidos bajo ninguna circunstancia.",
+    name: "YouTube",
+    href: "https://youtube.com",
+    icon: (
+      <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
   },
   {
-    q: "¿Qué formato de evidencias se pueden enviar?",
-    a: "Puedes compartir documentos en PDF, capturas de pantalla, audios, fotografías y enlaces a carpetas seguras en la nube (Google Drive, OneDrive, Dropbox, WeTransfer).",
+    name: "Instagram",
+    href: "https://instagram.com/la_katuar",
+    icon: (
+      <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+      </svg>
+    ),
   },
   {
-    q: "¿Cuándo se transmite el programa 'En La Mira' en vivo?",
-    a: "El programa estelar conducido por Jessica Vallenilla ('La Katuar') se transmite en vivo de Lunes a Viernes desde la 1:15 PM (hora Venezuela / Miami) a través de YouTube y nuestro portal oficial.",
+    name: "X (Twitter)",
+    href: "https://x.com/la_katuar",
+    icon: (
+      <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    name: "TikTok",
+    href: "https://tiktok.com",
+    icon: (
+      <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 2.89 3.5 2.73 1.53-.07 2.78-1.16 3.03-2.65.1-1.02.07-2.05.08-3.08V0c.04.02.04.02.04.02z" />
+      </svg>
+    ),
+  },
+];
+
+const FAQS: readonly FAQItem[] = [
+  {
+    question: "¿Cómo garantizan el anonimato de las fuentes?",
+    answer:
+      "Protegemos la identidad de nuestras fuentes bajo el secreto profesional periodístico. Si solicitas anonimato, tus datos de contacto no se almacenan en servidores públicos ni se revelan en las publicaciones.",
+  },
+  {
+    question: "¿Qué formato de evidencias se pueden adjuntar?",
+    answer:
+      "Documentos en formato PDF, imágenes, audios o enlaces a repositorios seguros (Google Drive, Dropbox, WeTransfer).",
+  },
+  {
+    question: "¿Cuándo se transmite el programa 'En La Mira'?",
+    answer:
+      "De lunes a viernes a partir de la 1:15 PM (Hora Venezuela / Miami) a través de YouTube y nuestro portal.",
   },
 ];
 
 export default function ContactoPage(): React.JSX.Element {
   return (
-    <div className="min-h-screen bg-[#120404] text-white flex flex-col justify-between">
+    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
       <Header />
 
-      <div className="relative overflow-hidden bg-gradient-to-b from-[#85020b] via-[#480207] to-[#120404] text-white flex-1">
-        {/* Radial overlay glow identical to Hero Section */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.09),transparent_60%)]"
-        />
-
-        <main className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 w-full">
-          {/* Breadcrumbs */}
-          <nav aria-label="Ruta de navegación" className="mb-6 flex items-center gap-2 text-xs text-red-200/80">
-            <Link href="/" className="transition hover:text-white">
+      <main className="flex-1">
+        {/* Contenedor principal con padding mobile-first */}
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+          
+          {/* Breadcrumbs editorial */}
+          <nav aria-label="Ruta de navegación" className="mb-6 flex items-center gap-2 text-xs text-zinc-400">
+            <Link href="/" className="transition-colors hover:text-white">
               Inicio
             </Link>
-            <span className="text-red-300/50">/</span>
-            <span className="font-semibold text-white">Contacto y Denuncias</span>
+            <span className="text-zinc-600">/</span>
+            <span className="font-medium text-zinc-200">Contacto</span>
           </nav>
 
-          {/* Hero Section */}
-          <div className="relative mb-12 overflow-hidden rounded-2xl border border-red-500/30 bg-gradient-to-b from-[#85020b] via-[#630108] to-[#340104] p-6 sm:p-10 shadow-2xl">
-            <div className="absolute top-0 right-0 -mt-10 -mr-10 h-56 w-56 rounded-full bg-red-400/10 blur-3xl pointer-events-none" />
-            <div className="relative z-10 max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-md">
-                <span>CANAL DE COMUNICACIÓN OFICIAL</span>
+          {/* Encabezado Editorial Compacto y Equilibrado */}
+          <header className="mb-6 border-b border-zinc-800 pb-5 sm:mb-8 sm:pb-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              {/* Bloque Izquierdo: Título y descripción */}
+              <div className="max-w-2xl">
+                <div className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                  Canal Oficial
+                </div>
+                <h1 className="mt-2 text-2xl font-black uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
+                  Contacto & Denuncias
+                </h1>
+                <p className="mt-1 text-xs leading-relaxed text-zinc-400 sm:text-sm">
+                  Línea directa para recepción de material confidencial, notas de prensa y alianzas comerciales.
+                </p>
               </div>
 
-              <h1 className="mt-4 text-3xl font-black uppercase tracking-tight text-white sm:text-5xl">
-                Contacto & Denuncias
-              </h1>
+              {/* Bloque Derecho: Indicadores rápidos para balance visual */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs">
+                  <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">En Vivo</span>
+                    <span className="font-semibold text-zinc-200">Lun - Vie | 1:15 PM</span>
+                  </div>
+                </div>
 
-              <p className="mt-3 text-sm leading-relaxed text-zinc-200 sm:text-base">
-                La Katuar News es una plataforma de periodismo sin censura, sin filtros y con la verdad.
-                Si tienes una denuncia, filtración, propuesta informativa o interés comercial,
-                este es tu canal directo de comunicación.
-              </p>
+                <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs">
+                  <svg className="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Seguridad</span>
+                    <span className="font-semibold text-zinc-200">Reserva de Fuente</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </header>
 
-          {/* Main Content Grid: Direct Channels (Left) + Form (Right) */}
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 mb-12">
-            {/* Tarjetas Informativas de Canales Directos */}
-            <div className="space-y-6 lg:col-span-5">
-              <div className="rounded-xl border border-red-700/40 bg-[#250306]/85 p-5 backdrop-blur-md shadow-xl">
-                <h2 className="text-xs font-black uppercase tracking-widest text-red-400 mb-4 flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                  Vías Directas de Contacto
+          {/* Grid Principal: Canales a la izquierda, Formulario a la derecha */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+            
+            {/* Vías de contacto directas (Lista estructurada sin cajas dobles) */}
+            <aside className="space-y-8 lg:col-span-5">
+              <div>
+                <h2 className="text-base font-medium uppercase tracking-widest text-zinc-400">
+                  Vías Directas
                 </h2>
-
-                <div className="space-y-4">
-                  {directChannels.map((ch) => (
-                    <div
-                      key={ch.title}
-                      className="rounded-xl border border-red-800/40 bg-[#35050a]/75 p-4 transition duration-200 hover:border-red-500/60 hover:bg-[#45070d]/85 shadow-md"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-2.5">
-                          <div className="rounded-lg bg-black/40 p-2 border border-red-900/60">
-                            {ch.icon}
-                          </div>
-                          <h3 className="text-sm font-bold text-white">{ch.title}</h3>
+                
+                <ul className="mt-4 divide-y divide-zinc-800 border-y border-zinc-800">
+                  {DIRECT_CHANNELS.map((channel) => (
+                    <li key={channel.title} className="py-4">
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5 flex-shrink-0">
+                          {channel.icon}
                         </div>
-                        <span className={`rounded px-2 py-0.5 text-[9px] font-black uppercase tracking-wider ${ch.badgeColor}`}>
-                          {ch.badge}
-                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="text-base font-semibold text-white">
+                              {channel.title}
+                            </h3>
+                            <span className="text-[12px] font-medium uppercase tracking-wider text-zinc-400">
+                              {channel.category}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-base leading-relaxed text-zinc-400">
+                            {channel.description}
+                          </p>
+                          <a
+                            href={channel.contactHref}
+                            className="mt-2 inline-flex items-center gap-1 text-sm font-normal text-red-500 transition-colors hover:text-red-400"
+                          >
+                            <span>{channel.contactText}</span>
+                            <span aria-hidden="true">&rarr;</span>
+                          </a>
+                        </div>
                       </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                      <p className="mt-2.5 text-xs text-zinc-300 leading-relaxed">
-                        {ch.description}
-                      </p>
-
-                      <div className="mt-3 border-t border-red-800/30 pt-2.5">
-                        <a
-                          href={ch.contactHref}
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 transition hover:text-red-300 hover:underline"
-                        >
-                          <span>{ch.contactText}</span>
-                          <span>→</span>
-                        </a>
-                      </div>
-                    </div>
+              {/* Redes Sociales: Botones accesibles de toque móvil */}
+              <div>
+                <h2 className="text-base font-medium uppercase tracking-widest text-zinc-400">
+                  Redes Oficiales
+                </h2>
+                <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2">
+                  {SOCIAL_NETWORKS.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex min-h-[44px] items-center gap-2.5 rounded border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-700 hover:bg-zinc-800 hover:text-white"
+                    >
+                      {social.icon}
+                      <span>{social.name}</span>
+                    </a>
                   ))}
                 </div>
               </div>
+            </aside>
 
-              {/* Redes Sociales Oficiales */}
-              <div className="rounded-xl border border-red-800/40 bg-[#200305]/85 p-5 shadow-xl backdrop-blur-md">
-                <h3 className="text-xs font-black uppercase tracking-wider text-red-300 mb-3">
-                  Sigue las Redes Oficiales
-                </h3>
-                <p className="text-xs text-zinc-300 mb-4">
-                  Mantente al día con reportajes al minuto y alertas informativas:
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <a
-                    href="https://youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-lg border border-red-800/50 bg-[#2d0408] px-3 py-2 text-zinc-100 transition hover:border-red-400 hover:bg-[#3d060b] hover:text-white"
-                  >
-                    <span className="text-red-500 font-bold">▶</span> YouTube
-                  </a>
-                  <a
-                    href="https://instagram.com/la_katuar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-lg border border-red-800/50 bg-[#2d0408] px-3 py-2 text-zinc-100 transition hover:border-red-400 hover:bg-[#3d060b] hover:text-white"
-                  >
-                    <span className="text-pink-500 font-bold">📷</span> Instagram
-                  </a>
-                  <a
-                    href="https://x.com/la_katuar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-lg border border-red-800/50 bg-[#2d0408] px-3 py-2 text-zinc-100 transition hover:border-red-400 hover:bg-[#3d060b] hover:text-white"
-                  >
-                    <span className="text-white font-bold">𝕏</span> X (Twitter)
-                  </a>
-                  <a
-                    href="https://tiktok.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-lg border border-red-800/50 bg-[#2d0408] px-3 py-2 text-zinc-100 transition hover:border-red-400 hover:bg-[#3d060b] hover:text-white"
-                  >
-                    <span className="text-cyan-400 font-bold">🎵</span> TikTok
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Formulario Interactivo de Contacto y Denuncias */}
-            <div className="lg:col-span-7">
-              <ContactForm />
-            </div>
-          </div>
-
-          {/* Banner de Denuncias con Horarios de Transmisión */}
-          <div className="my-10">
-            <DenunciasBanner scheduleText="LUNES A VIERNES" timeText="DESDE LA 1:15 PM (HORA VENEZUELA)" />
-          </div>
-
-          {/* Preguntas Frecuentes */}
-          <div className="mt-12 rounded-2xl border border-red-800/40 bg-[#1d0305]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
-            <div className="mb-6">
-              <span className="rounded bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
-                GUÍA DE ENVÍO
-              </span>
-              <h2 className="mt-2 text-xl font-black uppercase text-white sm:text-2xl">
-                Preguntas Frecuentes sobre Denuncias
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {faqs.map((faq, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-xl border border-red-900/50 bg-[#2a0407]/75 p-4 transition hover:border-red-600/60 shadow-md"
-                >
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 mb-2">
-                    {faq.q}
-                  </h3>
-                  <p className="text-xs leading-relaxed text-zinc-200">
-                    {faq.a}
+            {/* Formulario Principal con superficie contrastada y elevación editorial */}
+            <section className="lg:col-span-7">
+              <div className="rounded-xl border border-zinc-700/80 bg-zinc-900 p-5 shadow-2xl shadow-black/60 sm:p-7 lg:p-8 border-t-2 border-t-red-600">
+                <div className="mb-6 border-b border-zinc-800 pb-4">
+                  <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+                    Envíanos un mensaje
+                  </h2>
+                  <p className="mt-1.5 text-xs text-zinc-300 sm:text-sm">
+                    Completa los campos requeridos. Puedes solicitar confidencialidad explícita.
                   </p>
                 </div>
+                <ContactForm />
+              </div>
+            </section>
+          </div>
+
+          {/* Banner de Horarios de Transmisión */}
+          <section className="my-10">
+            <DenunciasBanner 
+              scheduleText="LUNES A VIERNES" 
+              timeText="DESDE LA 1:15 PM (HORA VENEZUELA)" 
+            />
+          </section>
+
+          {/* Preguntas Frecuentes: Formato Acordeón Nativo (Optimizado para móvil) */}
+          <section className="border-t border-zinc-800 pt-8 sm:pt-10">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+              Preguntas Frecuentes
+            </h2>
+            
+            <div className="mt-4 divide-y divide-zinc-800 border-b border-zinc-800">
+              {FAQS.map((faq, index) => (
+                <details 
+                  key={index} 
+                  className="group py-4 transition-colors"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-zinc-200 hover:text-white">
+                    <span>{faq.question}</span>
+                    <span className="ml-4 text-xs text-zinc-500 transition-transform duration-200 group-open:rotate-180">
+                      &#9660;
+                    </span>
+                  </summary>
+                  <p className="mt-2 text-xs leading-relaxed text-zinc-400">
+                    {faq.answer}
+                  </p>
+                </details>
               ))}
             </div>
-          </div>
-        </main>
-      </div>
+          </section>
+
+        </div>
+      </main>
 
       <Footer />
     </div>
