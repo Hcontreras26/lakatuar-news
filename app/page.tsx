@@ -1,11 +1,12 @@
 import React from "react";
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import OnDemandSection from "@/components/OnDemandSection";
-import InstagramSection from "@/components/InstagramSection";
-import TwitterFeedSection from "@/components/TwitterFeedSection";
-import TopStoriesSection from "@/components/TopStoriesSection";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import HeroSection from "@/components/sections/HeroSection";
+import OnDemandSection from "@/components/sections/OnDemandSection";
+import InstagramSection from "@/components/sections/InstagramSection";
+import TwitterFeedSection from "@/components/sections/TwitterFeedSection";
+import TopStoriesSection from "@/components/sections/TopStoriesSection";
+
 
 export default function Home(): React.JSX.Element {
   return (

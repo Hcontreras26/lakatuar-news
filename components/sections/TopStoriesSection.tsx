@@ -1,6 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import type { MainStory, SidebarStory } from "@/types";
+import SidebarStoryRow from "@/components/ui/SidebarStoryRow";
+import DenunciasBanner from "@/components/ui/DenunciasBanner";
+
+export { default as SidebarStoryRow } from "@/components/ui/SidebarStoryRow";
+export type { SidebarStoryRowProps } from "@/components/ui/SidebarStoryRow";
+export { default as DenunciasBanner } from "@/components/ui/DenunciasBanner";
+export type { DenunciasBannerProps } from "@/components/ui/DenunciasBanner";
+export const DenunciasPromoBanner = DenunciasBanner;
 
 export interface TopStoriesSectionProps {
   mainStory?: MainStory;
@@ -56,98 +64,6 @@ const defaultSidebarStories: SidebarStory[] = [
     thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80",
   },
 ];
-
-export function SidebarStoryRow({ story }: { story: SidebarStory }): React.JSX.Element {
-  return (
-    <article className="flex items-start justify-between gap-4 border-b border-zinc-200 py-3 last:border-b-0 hover:opacity-80 transition cursor-pointer">
-      <div className="flex-1 pr-2">
-        <h4 className="font-serif text-sm font-bold leading-snug text-zinc-900 sm:text-[15px]">
-          {story.title}
-        </h4>
-        <span className="mt-1 block text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
-          {story.date}
-        </span>
-      </div>
-
-      {story.thumbnail && (
-        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded bg-zinc-100 sm:h-18 sm:w-18">
-          <Image
-            src={story.thumbnail}
-            alt={story.title}
-            fill
-            sizes="80px"
-            className="object-cover"
-          />
-        </div>
-      )}
-    </article>
-  );
-}
-
-export function DenunciasPromoBanner(): React.JSX.Element {
-  return (
-    <div className="relative mt-8 flex flex-col items-center justify-between gap-4 overflow-hidden rounded-xl bg-gradient-to-r from-black via-[#1c0205] to-black p-4 text-white shadow-xl sm:flex-row sm:p-5 border border-red-900/60">
-      {/* Lado Izquierdo: QR Code */}
-      <div className="flex items-center gap-3">
-        <div className="flex flex-col items-center justify-center rounded-lg bg-white p-2 text-black shadow-md">
-          {/* Código QR Ilustrativo */}
-          <div className="h-14 w-14 sm:h-16 sm:w-16">
-            <svg className="h-full w-full fill-black" viewBox="0 0 24 24">
-              <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v4h-4v-4zm-4 4h4v4h-4v-4zm4-4h4v-4h-4v4zm-4-4h4v4h-4v-4z" />
-            </svg>
-          </div>
-        </div>
-        <div className="text-center sm:text-left">
-          <span className="block text-[11px] font-black uppercase tracking-wider text-red-500">
-            ESCÁNEA PARA
-          </span>
-          <span className="block text-xs font-black uppercase tracking-widest text-white sm:text-sm">
-            DENUNCIAS
-          </span>
-        </div>
-      </div>
-
-      {/* Centro: Badge Circular Rojo y Horario */}
-      <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-full bg-red-600 p-1 text-center shadow-lg">
-          <span className="text-[8px] font-black leading-tight tracking-tighter text-white uppercase">
-            LA KATUAR
-          </span>
-          <span className="text-[7px] font-bold leading-tight text-white/90 uppercase">
-            NEWS
-          </span>
-        </div>
-
-        <div className="text-left">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-300">
-            LUNES A VIERNES
-          </p>
-          <p className="text-xs font-black uppercase tracking-wider text-red-400 sm:text-sm">
-            DESDE LA 1:15 PM
-          </p>
-        </div>
-      </div>
-
-      {/* Lado Derecho: Logo En La Mira */}
-      <div className="text-center sm:text-right">
-        <div className="flex items-baseline justify-center sm:justify-end gap-1.5">
-          <span className="rounded bg-red-600 px-1 py-0.5 text-[9px] font-black uppercase text-white">
-            EN LA
-          </span>
-          <span className="text-lg font-black uppercase tracking-tight text-white sm:text-xl">
-            MIRA
-          </span>
-        </div>
-        <p className="text-[11px] font-medium text-zinc-400">
-          con <span className="font-bold text-white">La Katuar</span>
-        </p>
-        <p className="text-[9px] uppercase tracking-widest text-zinc-500">
-          JESSICA VALLENILLA
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function TopStoriesSection({
   mainStory = defaultMainStory,
@@ -221,7 +137,7 @@ export default function TopStoriesSection({
             </article>
 
             {/* Banner de Denuncias y Emisión con QR */}
-            <DenunciasPromoBanner />
+            <DenunciasBanner />
           </div>
 
           {/* Columna Derecha: 6 Noticias Compactas con Miniatura */}
