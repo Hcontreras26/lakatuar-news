@@ -53,14 +53,14 @@ export default function TerminosPage(): React.JSX.Element {
             <h2 className="text-lg font-black uppercase text-white tracking-wide flex items-center gap-2 border-b border-red-900/30 pb-2">
               <span className="text-red-500 font-mono">02.</span> Naturaleza Periodística y Libertad de Información
             </h2>
-            <div className="rounded-xl border border-red-600/40 bg-gradient-to-r from-[#200507] to-[#120304] p-4 text-xs">
-              <div className="flex items-center gap-2 text-red-400 font-bold uppercase tracking-wider mb-1.5">
+            <div className="rounded-xl border border-red-500/40 bg-gradient-to-r from-[#630108] via-[#480206] to-[#2b0204] p-4 text-xs shadow-lg">
+              <div className="flex items-center gap-2 text-red-300 font-bold uppercase tracking-wider mb-1.5">
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
                 </svg>
                 Compromiso Informativo y Editorial
               </div>
-              <p className="text-zinc-200">
+              <p className="text-zinc-100">
                 LA KATUAR NEWS es un medio de comunicación independiente dedicado al análisis, investigación y difusión de noticias de interés público, conducido bajo la dirección de la periodista Jessica Vallenilla (&quot;La Katuar&quot;). Nuestros contenidos se fundamentan en el ejercicio legítimo de la libertad de expresión y el derecho universal a la información veraz.
               </p>
             </div>

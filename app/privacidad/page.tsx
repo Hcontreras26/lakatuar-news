@@ -53,14 +53,14 @@ export default function PrivacidadPage(): React.JSX.Element {
             <h2 className="text-lg font-black uppercase text-white tracking-wide flex items-center gap-2 border-b border-red-900/30 pb-2">
               <span className="text-red-500 font-mono">02.</span> Protección Rigurosa de Fuentes Periodísticas y Denunciantes Anónimos
             </h2>
-            <div className="rounded-xl border border-red-600/40 bg-gradient-to-r from-[#200507] to-[#120304] p-4 text-xs">
-              <div className="flex items-center gap-2 text-red-400 font-bold uppercase tracking-wider mb-1.5">
+            <div className="rounded-xl border border-red-500/40 bg-gradient-to-r from-[#630108] via-[#480206] to-[#2b0204] p-4 text-xs shadow-lg">
+              <div className="flex items-center gap-2 text-red-300 font-bold uppercase tracking-wider mb-1.5">
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
                 </svg>
                 Principio de Confidencialidad Absoluta
               </div>
-              <p className="text-zinc-200">
+              <p className="text-zinc-100">
                 La libertad de prensa y el derecho a la información exigen la protección irrestricta de las fuentes informativas. Toda información enviada a través de nuestros canales de denuncia con solicitud de anonimato será tratada bajo rigurosos protocolos de confidencialidad y secreto profesional.
               </p>
             </div>
@@ -81,20 +81,20 @@ export default function PrivacidadPage(): React.JSX.Element {
             </h2>
             <p>Recopilamos información de dos maneras principales:</p>
             <div className="space-y-3">
-              <div className="rounded-lg bg-black/40 p-3.5 border border-zinc-800">
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider text-red-400 mb-1">
+              <div className="rounded-xl bg-[#280407]/85 p-4 border border-red-800/50 shadow-md">
+                <h3 className="font-bold text-white text-xs uppercase tracking-wider text-red-300 mb-1">
                   A. Información que usted nos proporciona voluntariamente:
                 </h3>
-                <p className="text-xs text-zinc-300">
+                <p className="text-xs text-zinc-200">
                   Nombre, dirección de correo electrónico, número telefónico o de WhatsApp, mensajes, enlaces a evidencias o archivos proporcionados al completar nuestros formularios de contacto, suscripción o denuncias.
                 </p>
               </div>
 
-              <div className="rounded-lg bg-black/40 p-3.5 border border-zinc-800">
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider text-red-400 mb-1">
+              <div className="rounded-xl bg-[#280407]/85 p-4 border border-red-800/50 shadow-md">
+                <h3 className="font-bold text-white text-xs uppercase tracking-wider text-red-300 mb-1">
                   B. Información técnica y de navegación automatizada:
                 </h3>
-                <p className="text-xs text-zinc-300">
+                <p className="text-xs text-zinc-200">
                   Dirección IP anónima, tipo de navegador, sistema operativo, páginas de referencia/salida, fecha y hora de acceso, y métricas agregadas de reproducción de video mediante cookies o scripts de analítica web.
                 </p>
               </div>

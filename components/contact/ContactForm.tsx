@@ -81,8 +81,8 @@ export default function ContactForm(): React.JSX.Element {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-red-500/40 bg-gradient-to-b from-[#1f0707] to-[#120404] p-8 text-center shadow-2xl">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-600/20 text-red-500 ring-2 ring-red-500/30">
+      <div className="rounded-2xl border border-red-500/40 bg-gradient-to-b from-[#420408] via-[#280205] to-[#120203] p-8 text-center shadow-2xl backdrop-blur-md">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-600/30 text-red-400 ring-2 ring-red-500/40 shadow-lg">
           <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
           </svg>
@@ -90,12 +90,12 @@ export default function ContactForm(): React.JSX.Element {
         <h3 className="text-xl font-black uppercase tracking-wider text-white sm:text-2xl">
           ¡Mensaje Recibido!
         </h3>
-        <p className="mt-2 text-sm text-zinc-300">
+        <p className="mt-2 text-sm text-zinc-200">
           Tu mensaje ha sido remitido al equipo de redacción y producción de{" "}
           <span className="font-bold text-red-400">LA KATUAR NEWS</span>.
         </p>
         {formData.isAnonymous && (
-          <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-red-900/60 bg-red-950/40 px-3 py-2 text-xs font-semibold text-red-300">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-red-700/60 bg-red-950/60 px-3 py-2 text-xs font-semibold text-red-200">
             <svg className="h-4 w-4 fill-red-400" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
             </svg>
@@ -118,22 +118,22 @@ export default function ContactForm(): React.JSX.Element {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative rounded-2xl border border-red-900/50 bg-gradient-to-b from-[#1c0606] via-[#140404] to-[#0f0303] p-6 text-white shadow-2xl sm:p-8"
+      className="relative rounded-2xl border border-red-700/40 bg-gradient-to-b from-[#2a0407]/95 via-[#1a0204]/95 to-[#100102] p-6 text-white shadow-2xl backdrop-blur-md sm:p-8"
     >
-      <div className="mb-6 border-b border-red-900/40 pb-4">
-        <span className="inline-block rounded bg-red-600/20 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-red-400 border border-red-800/40">
+      <div className="mb-6 border-b border-red-800/40 pb-4">
+        <span className="inline-block rounded bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
           Formulario de Contacto
         </span>
         <h3 className="mt-2 text-xl font-black uppercase tracking-wide text-white sm:text-2xl">
           Escríbenos Directamente
         </h3>
-        <p className="mt-1 text-xs text-zinc-400">
+        <p className="mt-1 text-xs text-zinc-300">
           Completa el siguiente formulario para denuncias, coberturas, notas de prensa o consultas.
         </p>
       </div>
 
       {errorMessage && (
-        <div className="mb-6 rounded-lg border border-red-500/50 bg-red-950/50 p-3 text-xs text-red-200">
+        <div className="mb-6 rounded-lg border border-red-500/50 bg-red-950/70 p-3 text-xs text-red-100">
           {errorMessage}
         </div>
       )}
@@ -143,7 +143,7 @@ export default function ContactForm(): React.JSX.Element {
         <div className="sm:col-span-2">
           <label
             htmlFor="requestType"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Tipo de Solicitud *
           </label>
@@ -152,13 +152,13 @@ export default function ContactForm(): React.JSX.Element {
             name="requestType"
             value={formData.requestType}
             onChange={handleChange}
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           >
-            <option value="denuncia">🚨 Denuncia Ciudadana / Filtración de Información</option>
-            <option value="prensa">📰 Nota de Prensa / Cobertura Periodística</option>
-            <option value="publicidad">💼 Publicidad / Patrocinios y Alianzas</option>
-            <option value="opinion">🎙️ Comentario sobre el Programa / Opinión</option>
-            <option value="otro">✉️ Consulta General</option>
+            <option value="denuncia" className="bg-[#1a0204] text-white">🚨 Denuncia Ciudadana / Filtración de Información</option>
+            <option value="prensa" className="bg-[#1a0204] text-white">📰 Nota de Prensa / Cobertura Periodística</option>
+            <option value="publicidad" className="bg-[#1a0204] text-white">💼 Publicidad / Patrocinios y Alianzas</option>
+            <option value="opinion" className="bg-[#1a0204] text-white">🎙️ Comentario sobre el Programa / Opinión</option>
+            <option value="otro" className="bg-[#1a0204] text-white">✉️ Consulta General</option>
           </select>
         </div>
 
@@ -166,7 +166,7 @@ export default function ContactForm(): React.JSX.Element {
         <div>
           <label
             htmlFor="name"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Nombre Completo {formData.isAnonymous ? "(Opcional)" : "*"}
           </label>
@@ -178,7 +178,7 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.isAnonymous ? "Fuente Anónima" : formData.name}
             onChange={handleChange}
             placeholder="Tu nombre o seudónimo"
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400 disabled:opacity-60 disabled:cursor-not-allowed"
           />
         </div>
 
@@ -186,7 +186,7 @@ export default function ContactForm(): React.JSX.Element {
         <div>
           <label
             htmlFor="email"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Correo Electrónico
           </label>
@@ -197,7 +197,7 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.email}
             onChange={handleChange}
             placeholder="ejemplo@correo.com"
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
         </div>
 
@@ -205,7 +205,7 @@ export default function ContactForm(): React.JSX.Element {
         <div>
           <label
             htmlFor="phone"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Teléfono o WhatsApp
           </label>
@@ -216,7 +216,7 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.phone}
             onChange={handleChange}
             placeholder="+1 234 567 8900"
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
         </div>
 
@@ -224,7 +224,7 @@ export default function ContactForm(): React.JSX.Element {
         <div>
           <label
             htmlFor="subject"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Asunto / Título de la Denuncia *
           </label>
@@ -236,7 +236,7 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.subject}
             onChange={handleChange}
             placeholder="Resumen del caso o tema"
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
         </div>
 
@@ -244,7 +244,7 @@ export default function ContactForm(): React.JSX.Element {
         <div className="sm:col-span-2">
           <label
             htmlFor="message"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Detalle del Mensaje o Hechos *
           </label>
@@ -256,7 +256,7 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.message}
             onChange={handleChange}
             placeholder="Describe con claridad los hechos, lugares, fechas o personas involucradas..."
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
         </div>
 
@@ -264,7 +264,7 @@ export default function ContactForm(): React.JSX.Element {
         <div className="sm:col-span-2">
           <label
             htmlFor="evidenceUrl"
-            className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1"
+            className="block text-xs font-bold uppercase tracking-wider text-red-200 mb-1"
           >
             Enlace a Evidencias / Archivos (Google Drive, Dropbox, Video, etc.)
           </label>
@@ -275,16 +275,16 @@ export default function ContactForm(): React.JSX.Element {
             value={formData.evidenceUrl}
             onChange={handleChange}
             placeholder="https://drive.google.com/..."
-            className="w-full rounded-lg border border-red-900/60 bg-[#120404] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            className="w-full rounded-lg border border-red-800/60 bg-[#240306]/90 px-3.5 py-2.5 text-xs text-white placeholder-red-200/40 transition focus:border-red-400 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
-          <p className="mt-1 text-[11px] text-zinc-400">
+          <p className="mt-1 text-[11px] text-zinc-300">
             Puedes compartir carpetas o enlaces de video/fotos protegidas.
           </p>
         </div>
 
         {/* Checkbox Anonimato */}
         <div className="sm:col-span-2 pt-2">
-          <label className="flex items-start gap-3 rounded-lg border border-red-950 bg-[#170404]/80 p-3 cursor-pointer transition hover:border-red-800">
+          <label className="flex items-start gap-3 rounded-lg border border-red-800/50 bg-[#2d0408]/85 p-3.5 cursor-pointer transition hover:border-red-500/70 shadow-md">
             <input
               type="checkbox"
               name="isAnonymous"
@@ -296,7 +296,7 @@ export default function ContactForm(): React.JSX.Element {
               <span className="font-bold text-white block">
                 🔒 Solicito estricto anonimato y reserva de mi identidad
               </span>
-              <span className="text-zinc-400 text-[11px]">
+              <span className="text-zinc-300 text-[11px]">
                 Garantizamos la confidencialidad de la fuente según el código deontológico del periodismo.
               </span>
             </div>
@@ -305,11 +305,11 @@ export default function ContactForm(): React.JSX.Element {
       </div>
 
       {/* Botón de Enviar */}
-      <div className="mt-6 flex items-center justify-end border-t border-red-900/40 pt-4">
+      <div className="mt-6 flex items-center justify-end border-t border-red-800/40 pt-4">
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-red-600 px-7 py-3 text-xs font-black uppercase tracking-wider text-white shadow-lg shadow-red-950/50 transition duration-200 hover:bg-red-700 hover:shadow-red-800/40 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-red-600 to-[#85020b] px-7 py-3 text-xs font-black uppercase tracking-wider text-white shadow-lg shadow-red-950/60 transition duration-200 hover:from-red-500 hover:to-[#a0040e] hover:shadow-red-800/50 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50"
         >
           {status === "submitting" ? (
             <>
