@@ -51,7 +51,7 @@ const defaultInstagramPosts: InstagramPost[] = [
   {
     id: 4,
     tag: "#LAKATUARNEWS",
-    headline: "LA \"TRAMA DE FAVORES\" ENTRE EL RÉGIMEN Y EMPRESA TURCA",
+    headline: 'LA "TRAMA DE FAVORES" ENTRE EL RÉGIMEN Y EMPRESA TURCA',
     imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
     authorUsername: "la_katuar",
     authorAvatar: "/presentadora.png",
@@ -80,15 +80,19 @@ export default function InstagramSection({
 }: InstagramSectionProps): React.JSX.Element {
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const scrollLeft = (): void => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -360, behavior: "smooth" });
-    }
+  const getScrollDistance = (): number => {
+    if (!sliderRef.current) return 320;
+    const firstCard = sliderRef.current.firstElementChild as HTMLElement | null;
+    return firstCard ? firstCard.offsetWidth + 20 : sliderRef.current.clientWidth;
   };
 
-  const scrollRight = (): void => {
+  const handleScroll = (direction: "left" | "right"): void => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 360, behavior: "smooth" });
+      const distance = getScrollDistance();
+      sliderRef.current.scrollBy({
+        left: direction === "left" ? -distance : distance,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -98,7 +102,7 @@ export default function InstagramSection({
       className={`relative bg-white py-10 text-zinc-900 sm:py-14 ${className}`.trim()}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Barra Superior con Identidad de la Cuenta y Botón Seguir */}
+        {/* Barra Superior */}
         <div className="mb-6 flex items-center justify-between gap-4 border-b border-zinc-100 pb-5">
           <div className="flex items-center gap-3">
             <div className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-red-600 p-0.5">
@@ -140,36 +144,36 @@ export default function InstagramSection({
           </a>
         </div>
 
-        {/* Carrusel con Botones de Navegación */}
+        {/* Carrusel con Controles Laterales */}
         <div className="relative">
-          {/* Botón Izquierdo */}
+          {/* Botón Lateral Izquierdo */}
           <button
             type="button"
-            onClick={scrollLeft}
+            onClick={() => handleScroll("left")}
             aria-label="Deslizar a la izquierda"
-            className="absolute -left-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg transition hover:bg-white hover:text-black md:flex"
+            className="absolute -left-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg backdrop-blur-sm transition hover:bg-white hover:text-black md:flex lg:-left-5"
           >
             <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
               <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
             </svg>
           </button>
 
-          {/* Contenedor Deslizable */}
+          {/* Contenedor de Tarjetas */}
           <div
             ref={sliderRef}
-            className="flex gap-5 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-5 overflow-x-auto py-3 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {posts.map((post) => (
               <InstagramCard key={post.id} post={post} />
             ))}
           </div>
 
-          {/* Botón Derecho */}
+          {/* Botón Lateral Derecho */}
           <button
             type="button"
-            onClick={scrollRight}
+            onClick={() => handleScroll("right")}
             aria-label="Deslizar a la derecha"
-            className="absolute -right-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg transition hover:bg-white hover:text-black md:flex"
+            className="absolute -right-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg backdrop-blur-sm transition hover:bg-white hover:text-black md:flex lg:-right-5"
           >
             <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
               <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />

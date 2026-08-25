@@ -7,54 +7,50 @@ export interface InstagramCardProps {
   className?: string;
 }
 
-export default function InstagramCard({ post, className = "" }: InstagramCardProps): React.JSX.Element {
+export default function InstagramCard({
+  post,
+  className = "",
+}: InstagramCardProps): React.JSX.Element {
   return (
     <article
-      className={`group relative flex min-w-[280px] max-w-[340px] flex-1 flex-col overflow-hidden rounded-2xl border border-zinc-300/80 bg-black shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-w-[320px] ${className}`.trim()}
+      className={`group relative flex w-full shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-black shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] ${className}`.trim()}
     >
-      {/* Contenedor de la Imagen con Arte Gráfico de Noticia */}
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-zinc-950">
         <Image
           src={post.imageUrl}
           alt={post.headline}
           fill
-          sizes="(max-width: 640px) 280px, 340px"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Gradientes de superposición */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60" />
 
-        {/* Icono de post múltiple / carrusel en esquina superior derecha */}
-        <div className="absolute top-3 right-3 z-10 rounded-md bg-black/60 p-1.5 text-white backdrop-blur-sm">
-          <svg className="h-4 w-4 fill-white" viewBox="0 0 24 24">
+        <div className="absolute right-3 top-3 z-10 rounded-md bg-black/60 p-1.5 text-white backdrop-blur-sm">
+          <svg className="h-4 w-4 fill-white" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
           </svg>
         </div>
 
-        {/* Badge #LAKATUARNEWS */}
-        <div className="absolute top-3.5 left-3.5 z-10">
-          <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black tracking-wider text-white uppercase shadow-sm">
+        <div className="absolute left-3.5 top-3.5 z-10">
+          <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm">
             {post.tag ?? "#LAKATUARNEWS"}
           </span>
         </div>
 
-        {/* Contenido Editorial de la Imagen (Titular y Lower Third) */}
         <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end p-4">
-          {/* Titular en caja blanca con texto negro / impacto */}
           <div className="mb-2.5 rounded bg-white/95 p-2.5 shadow-lg backdrop-blur-sm">
-            <h3 className="text-sm font-black uppercase leading-tight tracking-tight text-zinc-950 sm:text-base">
+            <h3 className="line-clamp-2 text-sm font-black uppercase leading-tight tracking-tight text-zinc-950 sm:text-base">
               {post.headline}
             </h3>
           </div>
 
-          {/* Cintillo En La Mira */}
-          <div className="flex items-center justify-between rounded bg-gradient-to-r from-zinc-950 via-[#2a0407] to-zinc-950 px-2.5 py-1.5 border border-red-900/40">
+          <div className="flex items-center justify-between rounded border border-red-900/40 bg-gradient-to-r from-zinc-950 via-[#2a0407] to-zinc-950 px-2.5 py-1.5">
             <div className="flex items-center gap-1.5">
-              <span className="rounded bg-red-600 px-1 py-0.2 text-[8px] font-black uppercase text-white">
+              <span className="rounded bg-red-600 px-1 py-0.5 text-[8px] font-black uppercase text-white">
                 EN LA
               </span>
-              <span className="text-xs font-black tracking-wide text-white uppercase">
+              <span className="text-xs font-black uppercase tracking-wide text-white">
                 MIRA
               </span>
               <span className="text-[10px] font-medium text-zinc-300">
@@ -65,7 +61,6 @@ export default function InstagramCard({ post, className = "" }: InstagramCardPro
         </div>
       </div>
 
-      {/* Footer del Post de Instagram */}
       <div className="flex items-center justify-between border-t border-zinc-800 bg-[#0c0c0c] px-3.5 py-2.5 text-white">
         <div className="flex items-center gap-2">
           <div className="relative h-6 w-6 overflow-hidden rounded-full border border-red-500">
@@ -92,7 +87,6 @@ export default function InstagramCard({ post, className = "" }: InstagramCardPro
           </div>
         </div>
 
-        {/* Icono oficial de Instagram */}
         <a
           href={post.postUrl ?? "https://instagram.com/la_katuar"}
           target="_blank"
