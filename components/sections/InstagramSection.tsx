@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import type { InstagramPost } from "@/types";
 import InstagramCard from "@/components/ui/InstagramCard";
@@ -79,11 +79,20 @@ export default function InstagramSection({
   className = "",
 }: InstagramSectionProps): React.JSX.Element {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const getScrollDistance = (): number => {
     if (!sliderRef.current) return 320;
     const firstCard = sliderRef.current.firstElementChild as HTMLElement | null;
     return firstCard ? firstCard.offsetWidth + 20 : sliderRef.current.clientWidth;
+  };
+
+  const handleScrollUpdate = (): void => {
+    if (!sliderRef.current) return;
+    const scrollLeft = sliderRef.current.scrollLeft;
+    const distance = getScrollDistance();
+    const index = Math.round(scrollLeft / distance);
+    setActiveIndex(Math.min(Math.max(0, index), posts.length - 1));
   };
 
   const handleScroll = (direction: "left" | "right"): void => {
@@ -93,6 +102,17 @@ export default function InstagramSection({
         left: direction === "left" ? -distance : distance,
         behavior: "smooth",
       });
+    }
+  };
+
+  const scrollToIndex = (index: number): void => {
+    if (sliderRef.current) {
+      const distance = getScrollDistance();
+      sliderRef.current.scrollTo({
+        left: index * distance,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
     }
   };
 
@@ -146,7 +166,7 @@ export default function InstagramSection({
 
         {/* Carrusel con Controles Laterales */}
         <div className="relative">
-          {/* Botón Lateral Izquierdo */}
+          {/* Botón Lateral Izquierdo (Desktop) */}
           <button
             type="button"
             onClick={() => handleScroll("left")}
@@ -161,6 +181,7 @@ export default function InstagramSection({
           {/* Contenedor de Tarjetas */}
           <div
             ref={sliderRef}
+            onScroll={handleScrollUpdate}
             className="flex gap-5 overflow-x-auto py-3 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {posts.map((post) => (
@@ -168,7 +189,7 @@ export default function InstagramSection({
             ))}
           </div>
 
-          {/* Botón Lateral Derecho */}
+          {/* Botón Lateral Derecho (Desktop) */}
           <button
             type="button"
             onClick={() => handleScroll("right")}
@@ -179,6 +200,23 @@ export default function InstagramSection({
               <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
             </svg>
           </button>
+        </div>
+
+        {/* Indicador de Puntos en Mobile */}
+        <div className="mt-4 flex items-center justify-center gap-1.5 md:hidden">
+          {posts.map((post, idx) => (
+            <button
+              key={post.id}
+              type="button"
+              onClick={() => scrollToIndex(idx)}
+              aria-label={`Ir a publicación ${idx + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === idx
+                  ? "w-6 bg-red-600"
+                  : "w-2 bg-zinc-300 hover:bg-zinc-400"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
