@@ -21,6 +21,8 @@ export interface ProgramInfo {
   imageUrl?: string;
   presenterImageUrl?: string;
   isLive?: boolean;
+  videoId?: string;
+  videoUrl?: string;
 }
 
 export interface VideoItem {
@@ -70,6 +72,7 @@ export interface TweetQuote {
 export interface TweetMedia {
   type: "video" | "image";
   thumbnailUrl?: string;
+  imageUrl?: string;
   duration?: string;
   guestName?: string;
   guestTitle?: string;
@@ -80,6 +83,7 @@ export interface TweetMedia {
 
 export interface TweetPost {
   id: number | string;
+  url?: string;
   authorName: string;
   authorHandle: string;
   authorAvatar?: string;

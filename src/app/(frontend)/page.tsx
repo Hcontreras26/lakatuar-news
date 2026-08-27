@@ -7,9 +7,13 @@ import InstagramSection from "@/components/sections/InstagramSection";
 import TwitterFeedSection from "@/components/sections/TwitterFeedSection";
 import TopStoriesSection from "@/components/sections/TopStoriesSection";
 import { getLatestYouTubeVideosFromRSS } from "@/lib/youtube";
+import { getTwitterFeed } from "@/lib/twitter";
 
 export default async function Home(): Promise<React.JSX.Element> {
-  const latestVideos = await getLatestYouTubeVideosFromRSS();
+  const [latestVideos, twitterFeed] = await Promise.all([
+    getLatestYouTubeVideosFromRSS(),
+    getTwitterFeed(),
+  ]);
 
   return (
     <main className="min-h-screen bg-[#120404] text-white">
@@ -17,7 +21,7 @@ export default async function Home(): Promise<React.JSX.Element> {
       <Header />
 
       {/* 2. Hero Section con Transmisión y Presentadora */}
-      <HeroSection />
+      <HeroSection latestVideo={latestVideos[0]} />
 
       {/* 3. Sección ON Demand / VOD */}
       <OnDemandSection items={latestVideos} />
@@ -26,7 +30,7 @@ export default async function Home(): Promise<React.JSX.Element> {
       <InstagramSection />
 
       {/* 5. Sección de Tweets y Notas de X */}
-      <TwitterFeedSection />
+      <TwitterFeedSection tweets={twitterFeed.tweets} user={twitterFeed.user} />
 
       {/* 6. Sección de Top Stories con Noticia Central y Banner de Denuncias */}
       <TopStoriesSection />

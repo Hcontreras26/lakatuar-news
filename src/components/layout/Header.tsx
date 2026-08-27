@@ -19,7 +19,7 @@ export interface HeaderProps {
 
 const defaultNavItems: NavItem[] = [
   { label: "Inicio", href: "/" },
-  { label: "Lo último", href: "/#ultimas" },
+  { label: "Lo último", href: "/lo-ultimo" },
   { label: "Noticias", href: "/#noticias" },
   { label: "En vivo", href: "/#en-vivo" },
   { label: "Programas", href: "/#programas" },

@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+const hiraginoSans = localFont({
+  src: [
+    {
+      path: "../../fonts/HiraginoKakuGothicStd-W8.otf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+  variable: "--font-hiragino",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${hiraginoSans.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#120404] text-white">{children}</body>
     </html>

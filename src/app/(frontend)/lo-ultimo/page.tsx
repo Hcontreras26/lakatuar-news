@@ -1,0 +1,350 @@
+import React from "react";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import DenunciasBanner from "@/components/ui/DenunciasBanner";
+
+export const metadata: Metadata = {
+  title: "Lo Último | Noticias de Actualidad y Minuto a Minuto - LA KATUAR NEWS",
+  description:
+    "Edición continua de noticias, reportajes exclusivos, política, economía y sucesos de última hora en Venezuela y el mundo.",
+};
+
+interface NewsArticle {
+  id: string;
+  category: string;
+  categoryColor?: string;
+  title: string;
+  summary?: string;
+  caption?: string;
+  sourceOrAuthor: string;
+  image?: string;
+  date?: string;
+  url?: string;
+}
+
+const MAIN_ARTICLE: NewsArticle = {
+  id: "sip-informe-persecucion",
+  category: "POLÍTICA",
+  categoryColor: "bg-blue-600",
+  title: "Miguel Henrique Otero entregó a Dinorah Figuera informe de la SIP sobre persecución a medios en Venezuela",
+  summary:
+    "El presidente editor de El Nacional consignó en Madrid ante la jefa negociadora opositora un expediente que documenta el cierre de 297 emisoras, la desaparición de más de 100 periódicos y el bloqueo de 62 portales digitales durante casi tres décadas.",
+  image:
+    "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80",
+  caption: "Miguel Henrique Otero y Dinorah Figuera",
+  sourceOrAuthor: "El Nacional",
+  date: "Hace 1 hora",
+};
+
+const CENTER_STORIES: NewsArticle[] = [
+  {
+    id: "sin-mordaza-informe",
+    category: "VENEZUELA",
+    categoryColor: "bg-blue-500",
+    title: "Un Mundo Sin Mordaza: Venezuela enfrenta un primer semestre marcado por protestas, inflación y persecución política",
+    summary:
+      "La ONG documentó un incremento sostenido de vulneraciones a los derechos fundamentales, precariedad en servicios públicos y criminalización de la disidencia durante la primera mitad del año.",
+    sourceOrAuthor: "El Nacional",
+    date: "Hace 2 horas",
+  },
+  {
+    id: "ice-deportacion-gnb",
+    category: "POLÍTICA",
+    categoryColor: "bg-blue-600",
+    title: "EE UU deportó a Venezuela a excomandante de la GNB señalado por abusos y torturas durante las protestas de 2013 y 2014",
+    image:
+      "https://images.unsplash.com/photo-1508873696983-2df5703bc248?auto=format&fit=crop&w=800&q=80",
+    caption:
+      "El pasado 19 de agosto, el Servicio de Inmigración y Control de Aduanas (ICE) deportó a Venezuela a Rafael José Quero Silva, excomandante de la Guardia Nacional Bolivariana, tras una orden emitida por un juez de inmigración. Foto: Archivo.",
+    sourceOrAuthor: "El Nacional",
+    date: "Hace 3 horas",
+  },
+];
+
+const RIGHT_STORIES: NewsArticle[] = [
+  {
+    id: "economia-la-guaira",
+    category: "ECONOMÍA",
+    categoryColor: "bg-blue-600",
+    title: "La economía de La Guaira se hunde tras la parálisis del sector comercial",
+    image:
+      "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    caption:
+      "Fernando Magis, pescador local desde hace 40 años, baja todos los días a su puesto, así no venda nada. Porque no ir, dice, le duele más | Foto Ezequiel Carías",
+    sourceOrAuthor: "Karem González",
+    date: "Hace 4 horas",
+  },
+  {
+    id: "temblor-colombia",
+    category: "COLOMBIA",
+    categoryColor: "bg-blue-600",
+    title: "Temblor de magnitud 5,1 sacudió a Colombia dos semanas después del terremoto de 7,4",
+    summary:
+      "El Servicio Geológico Colombiano reportó que el movimiento telúrico se sintió en Bogotá, Medellín y Santander, sin que se hayan registrado daños estructurales graves ni víctimas.",
+    sourceOrAuthor: "El Nacional",
+    date: "Hace 5 horas",
+  },
+];
+
+const BREAKING_TICKER = [
+  "URGENTE: Nuevas sanciones del Departamento del Tesoro a figuras del régimen",
+  "OEA convoca a sesión extraordinaria para abordar la crisis institucional venezolana",
+  "Reportan fallas masivas en el suministro eléctrico en 7 estados del país",
+  "Comunidad internacional exige liberación inmediata de periodistas y presos políticos",
+];
+
+export default function LoUltimoPage(): React.JSX.Element {
+  return (
+    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
+      <Header />
+
+      <main className="flex-1">
+        {/* Barra superior de última hora (Ticker) */}
+        <div className="border-b border-red-950/60 bg-[#190305] px-4 py-2 text-xs">
+          <div className="mx-auto flex max-w-7xl items-center gap-3">
+            <span className="flex-shrink-0 rounded bg-red-600 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+              ÚLTIMA HORA
+            </span>
+            <div className="overflow-hidden whitespace-nowrap">
+              <div className="inline-block animate-marquee text-[11px] text-zinc-300">
+                {BREAKING_TICKER.join("  •  ")}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          {/* Breadcrumbs */}
+          <nav aria-label="Ruta de navegación" className="mb-4 flex items-center gap-2 text-xs text-zinc-400">
+            <Link href="/" className="transition-colors hover:text-white">
+              Inicio
+            </Link>
+            <span className="text-zinc-600">/</span>
+            <span className="font-semibold text-red-500">Lo Último</span>
+          </nav>
+
+          {/* Encabezado Editorial estilo Prensa */}
+          <header className="mb-8 border-b-2 border-zinc-800 pb-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white">
+                    EDICIÓN DIGITAL
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    ACTUALIZADO AL MINUTO
+                  </span>
+                </div>
+                <h1 className="mt-2 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  Lo Último
+                </h1>
+              </div>
+
+              <div className="text-xs font-medium text-zinc-400">
+                <span>Información verificada · Sin censura</span>
+              </div>
+            </div>
+          </header>
+
+          {/* Superficie de Prensa: Contenedor con estética de periódico moderno */}
+          <div className="rounded-xl border border-zinc-200 bg-white p-5 text-zinc-900 shadow-2xl sm:p-7 lg:p-9">
+            
+            {/* Grilla Principal de 3 Columnas según maqueta de prensa (Imagen 1) */}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8">
+              
+              {/* COLUMNA 1 (Izquierda): Noticia Central Destacada (5 Cols) */}
+              <article className="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  {/* Fotografía Principal */}
+                  <div className="relative aspect-[16/11] w-full overflow-hidden bg-zinc-100">
+                    <Image
+                      src={MAIN_ARTICLE.image!}
+                      alt={MAIN_ARTICLE.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 450px"
+                      className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                      priority
+                    />
+                  </div>
+
+                  {/* Pie de foto */}
+                  {MAIN_ARTICLE.caption && (
+                    <p className="mt-1.5 text-right text-[10px] font-normal italic text-zinc-600">
+                      {MAIN_ARTICLE.caption}
+                    </p>
+                  )}
+
+                  {/* Categoría */}
+                  <div className="mt-3">
+                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                      {MAIN_ARTICLE.category}
+                    </span>
+                  </div>
+
+                  {/* Titular Principal */}
+                  <h2 className="mt-2.5 font-serif text-2xl font-black leading-tight tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-3xl">
+                    <a href={MAIN_ARTICLE.url ?? "#"}>
+                      {MAIN_ARTICLE.title}
+                    </a>
+                  </h2>
+
+                  {/* Resumen Periodístico */}
+                  <p className="mt-3 text-xs leading-relaxed text-zinc-700 sm:text-sm">
+                    {MAIN_ARTICLE.summary}
+                  </p>
+                </div>
+
+                {/* Fuente / Autor */}
+                <div className="mt-4 border-t border-zinc-200 pt-2.5 text-xs font-semibold text-zinc-900">
+                  {MAIN_ARTICLE.sourceOrAuthor}
+                </div>
+              </article>
+
+              {/* COLUMNA 2 (Centro): 2 Noticias estructuradas verticalmente (4 Cols) */}
+              <section className="lg:col-span-4 lg:border-l lg:border-r lg:border-zinc-200 lg:px-6 flex flex-col justify-between space-y-6 lg:space-y-0">
+                
+                {/* Noticia 1 Superior */}
+                <article className="pb-6 border-b border-zinc-200">
+                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                    {CENTER_STORIES[0].category}
+                  </span>
+
+                  <h3 className="mt-2 font-serif text-lg font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-xl">
+                    <a href={CENTER_STORIES[0].url ?? "#"}>
+                      {CENTER_STORIES[0].title}
+                    </a>
+                  </h3>
+
+                  {CENTER_STORIES[0].summary && (
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
+                      {CENTER_STORIES[0].summary}
+                    </p>
+                  )}
+
+                  <p className="mt-3 text-xs font-semibold text-zinc-900">
+                    {CENTER_STORIES[0].sourceOrAuthor}
+                  </p>
+                </article>
+
+                {/* Noticia 2 Inferior con Fotografía */}
+                <article className="pt-2">
+                  {CENTER_STORIES[1].image && (
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+                      <Image
+                        src={CENTER_STORIES[1].image}
+                        alt={CENTER_STORIES[1].title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 360px"
+                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </div>
+                  )}
+
+                  {CENTER_STORIES[1].caption && (
+                    <p className="mt-1.5 text-[9.5px] leading-tight text-zinc-600">
+                      {CENTER_STORIES[1].caption}
+                    </p>
+                  )}
+
+                  <div className="mt-2.5">
+                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                      {CENTER_STORIES[1].category}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                    <a href={CENTER_STORIES[1].url ?? "#"}>
+                      {CENTER_STORIES[1].title}
+                    </a>
+                  </h3>
+
+                  <p className="mt-2.5 text-xs font-semibold text-zinc-900">
+                    {CENTER_STORIES[1].sourceOrAuthor}
+                  </p>
+                </article>
+
+              </section>
+
+              {/* COLUMNA 3 (Derecha): Economía y Noticias Regionales (3 Cols) */}
+              <section className="lg:col-span-3 flex flex-col justify-between space-y-6 lg:space-y-0">
+                
+                {/* Noticia Superior con Pescador */}
+                <article className="pb-6 border-b border-zinc-200">
+                  {RIGHT_STORIES[0].image && (
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+                      <Image
+                        src={RIGHT_STORIES[0].image}
+                        alt={RIGHT_STORIES[0].title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 300px"
+                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </div>
+                  )}
+
+                  {RIGHT_STORIES[0].caption && (
+                    <p className="mt-1.5 text-right text-[9.5px] leading-tight text-zinc-600">
+                      {RIGHT_STORIES[0].caption}
+                    </p>
+                  )}
+
+                  <div className="mt-2.5">
+                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                      {RIGHT_STORIES[0].category}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                    <a href={RIGHT_STORIES[0].url ?? "#"}>
+                      {RIGHT_STORIES[0].title}
+                    </a>
+                  </h3>
+
+                  <p className="mt-2 text-xs font-semibold text-zinc-900">
+                    {RIGHT_STORIES[0].sourceOrAuthor}
+                  </p>
+                </article>
+
+                {/* Noticia Inferior Regional */}
+                <article className="pt-2">
+                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                    {RIGHT_STORIES[1].category}
+                  </span>
+
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                    <a href={RIGHT_STORIES[1].url ?? "#"}>
+                      {RIGHT_STORIES[1].title}
+                    </a>
+                  </h3>
+
+                  {RIGHT_STORIES[1].summary && (
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
+                      {RIGHT_STORIES[1].summary}
+                    </p>
+                  )}
+
+                  <p className="mt-2.5 text-xs font-semibold text-zinc-900">
+                    {RIGHT_STORIES[1].sourceOrAuthor}
+                  </p>
+                </article>
+
+              </section>
+
+            </div>
+          </div>
+
+          {/* Banner de Contacto y Denuncias */}
+          <div className="mt-10">
+            <DenunciasBanner />
+          </div>
+
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

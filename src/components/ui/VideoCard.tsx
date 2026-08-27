@@ -22,19 +22,6 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
         {/* Gradiente oscuro sobre el video */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-        {/* Badge superior con duración o fecha */}
-        {item.duration && (
-          <span className="absolute right-3 top-3 z-10 rounded bg-black/80 px-2 py-0.5 text-[11px] font-bold text-white backdrop-blur-sm border border-red-950">
-            {item.duration}
-          </span>
-        )}
-
-        {/* Badge de Categoría/Programa en esquina superior izquierda */}
-        {item.tag && (
-          <span className="absolute left-3 top-3 z-10 rounded bg-red-600 px-2 py-0.5 text-[9px] font-black uppercase text-white shadow-sm">
-            {item.tag}
-          </span>
-        )}
 
         {/* Botón de reproducción flotante al hacer hover */}
         <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
