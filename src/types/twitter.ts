@@ -5,16 +5,20 @@ export interface TweetMedia {
   preview_image_url?: string;
 }
 
+export interface TweetPublicMetrics {
+  retweet_count: number;
+  reply_count: number;
+  like_count: number;
+  impression_count?: number;
+  quote_count?: number;
+  bookmark_count?: number;
+}
+
 export interface Tweet {
   id: string;
   text: string;
   created_at: string;
-  public_metrics: {
-    retweet_count: number;
-    reply_count: number;
-    like_count: number;
-    impression_count: number;
-  };
+  public_metrics?: TweetPublicMetrics;
   attachments?: {
     media_keys: string[];
   };
@@ -26,10 +30,11 @@ export interface TwitterUser {
   name: string;
   username: string;
   profile_image_url: string;
-  verified: boolean;
+  verified?: boolean;
 }
 
 export interface TwitterApiResponse {
   user: TwitterUser;
   tweets: Tweet[];
 }
+

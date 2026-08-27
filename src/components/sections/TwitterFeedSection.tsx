@@ -66,7 +66,7 @@ export default function TwitterFeedSection({
           </a>
         </div>
 
-        {/* Grilla simétrica a ancho completo de 2 columnas con fondo negro puro */}
+        {/* Grilla simétrica a ancho completo de 2 columnas alimentada por la API */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 items-stretch">
           {tweets.map((tweet) => (
             <TweetCard key={tweet.id} tweet={tweet} user={user} />

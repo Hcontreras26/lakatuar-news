@@ -1,4 +1,36 @@
-import type { Tweet, TweetMedia, TwitterUser, TwitterApiResponse } from "@/types/twitter";
+import type {
+  Tweet,
+  TweetMedia,
+  TwitterApiResponse,
+  TwitterUser,
+} from "@/types/twitter";
+
+interface XApiConfig {
+  bearerToken: string;
+  username: string;
+  baseUrl: string;
+  revalidateSeconds: number;
+}
+
+function resolveConfig(): XApiConfig | null {
+  const rawToken = process.env.X_API_BEARER_TOKEN || process.env.TWITTER_BEARER_TOKEN;
+  const username = process.env.X_USERNAME || process.env.TWITTER_USERNAME || "la_katuar";
+  const baseUrl = process.env.X_API_BASE_URL || "https://api.x.com/2";
+  const revalidateSeconds = Number(process.env.X_FEED_REVALIDATE_SECONDS) || 900;
+
+  if (!rawToken) {
+    return null;
+  }
+
+  const bearerToken = rawToken.includes("%") ? decodeURIComponent(rawToken) : rawToken;
+
+  return {
+    bearerToken,
+    username,
+    baseUrl: baseUrl.replace(/\/+$/, ""),
+    revalidateSeconds,
+  };
+}
 
 export const fallbackUser: TwitterUser = {
   id: "la_katuar_id",
@@ -47,14 +79,77 @@ export const fallbackTweets: Tweet[] = [
   },
 ];
 
-/**
- * Obtiene el feed estructurado de Twitter / X con usuario, tweets, multimedia y métricas.
- */
-export async function getTwitterFeed(): Promise<TwitterApiResponse> {
-  const token = process.env.TWITTER_BEARER_TOKEN;
-  const username = process.env.TWITTER_USERNAME || "la_katuar";
+export async function fetchUserByUsername(
+  username: string,
+  config: XApiConfig
+): Promise<TwitterUser | null> {
+  const url = new URL(`${config.baseUrl}/users/by/username/${username}`);
+  url.searchParams.set("user.fields", "profile_image_url,verified");
 
-  if (!token) {
+  const response = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${config.bearerToken}`,
+    },
+    next: { revalidate: 86400 },
+  });
+
+  if (!response.ok) {
+    if (process.env.NODE_ENV === "development") {
+      const errorBody = await response.text();
+      console.warn(`[X API] Error fetching user ${username} (${response.status}): ${errorBody}`);
+    }
+    return null;
+  }
+
+  const payload = await response.json();
+  return payload?.data || null;
+}
+
+export async function fetchUserTweets(
+  userId: string,
+  config: XApiConfig,
+  limit: number = 5
+): Promise<Tweet[]> {
+  const url = new URL(`${config.baseUrl}/users/${userId}/tweets`);
+  url.searchParams.set("max_results", limit.toString());
+  url.searchParams.set("tweet.fields", "created_at,public_metrics,attachments");
+  url.searchParams.set("expansions", "attachments.media_keys");
+  url.searchParams.set("media.fields", "url,preview_image_url,type");
+
+  const response = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${config.bearerToken}`,
+    },
+    next: { revalidate: config.revalidateSeconds },
+  });
+
+  if (!response.ok) {
+    if (process.env.NODE_ENV === "development") {
+      const errorBody = await response.text();
+      console.warn(`[X API] Error fetching tweets for user ${userId} (${response.status}): ${errorBody}`);
+    }
+    return [];
+  }
+
+  const payload = await response.json();
+  const rawTweets: Tweet[] = payload.data || [];
+  const rawMedia: TweetMedia[] = payload.includes?.media || [];
+
+  return rawTweets.map((tweet) => {
+    if (tweet.attachments?.media_keys?.length) {
+      const media = tweet.attachments.media_keys
+        .map((key) => rawMedia.find((m) => m.media_key === key))
+        .filter((item): item is TweetMedia => Boolean(item));
+      return { ...tweet, media };
+    }
+    return tweet;
+  });
+}
+
+export async function getTwitterFeed(): Promise<TwitterApiResponse> {
+  const config = resolveConfig();
+
+  if (!config) {
     return {
       user: fallbackUser,
       tweets: fallbackTweets,
@@ -62,53 +157,20 @@ export async function getTwitterFeed(): Promise<TwitterApiResponse> {
   }
 
   try {
-    const userRes = await fetch(
-      `https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        next: { revalidate: 86400 },
-      }
-    );
+    const user = await fetchUserByUsername(config.username, config);
 
-    if (!userRes.ok) {
-      return { user: fallbackUser, tweets: fallbackTweets };
+    if (!user) {
+      return {
+        user: fallbackUser,
+        tweets: fallbackTweets,
+      };
     }
 
-    const userData = await userRes.json();
-    const user: TwitterUser = userData.data;
-
-    const tweetsUrl = new URL(`https://api.twitter.com/2/users/${user.id}/tweets`);
-    tweetsUrl.searchParams.set("max_results", "5");
-    tweetsUrl.searchParams.set("tweet.fields", "created_at,public_metrics,attachments");
-    tweetsUrl.searchParams.set("expansions", "attachments.media_keys");
-    tweetsUrl.searchParams.set("media.fields", "url,preview_image_url,type");
-
-    const tweetsRes = await fetch(tweetsUrl.toString(), {
-      headers: { Authorization: `Bearer ${token}` },
-      next: { revalidate: 900 },
-    });
-
-    if (!tweetsRes.ok) {
-      return { user, tweets: fallbackTweets };
-    }
-
-    const tweetsData = await tweetsRes.json();
-    const rawTweets: Tweet[] = tweetsData.data || [];
-    const rawMedia: TweetMedia[] = tweetsData.includes?.media || [];
-
-    const tweetsWithMedia = rawTweets.map((tweet) => {
-      if (tweet.attachments?.media_keys) {
-        const media = tweet.attachments.media_keys
-          .map((key) => rawMedia.find((m) => m.media_key === key))
-          .filter(Boolean) as TweetMedia[];
-        return { ...tweet, media };
-      }
-      return tweet;
-    });
+    const tweets = await fetchUserTweets(user.id, config, 5);
 
     return {
       user,
-      tweets: tweetsWithMedia.length > 0 ? tweetsWithMedia : fallbackTweets,
+      tweets: tweets.length > 0 ? tweets : fallbackTweets,
     };
   } catch {
     return {
