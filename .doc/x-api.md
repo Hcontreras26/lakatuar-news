@@ -165,3 +165,16 @@ X_FEED_REVALIDATE_SECONDS=900
 2. **Optimizacion de Cuota:** Uso de Incremental Static Regeneration (ISR) mediante la propiedad `next: { revalidate }` en las llamadas a `fetch`.
 3. **Mapeo Tipado:** Validacion y transformacion de objetos adjuntos sin mutacion destructiva de datos.
 4. **Resiliencia Total:** La aplicacion nunca se detiene ante indisponibilidad del servicio externo.
+
+
+## 10. Testing
+
+1. **Tests de Conexión**
+
+```bash
+pnpm run test:x
+# o directo con Node:
+node scripts/test-x-api.mjs
+```
+
+Ejecuta una peticion local contra la API de X para validar el `BEARER_TOKEN` y el endpoint `by/username`, simulando el comportamiento de `getTwitterFeed()` sin depender de Next.js.

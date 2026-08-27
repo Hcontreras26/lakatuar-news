@@ -17,6 +17,9 @@ importers:
       '@payloadcms/richtext-lexical':
         specifier: ^3.88.0
         version: 3.88.0(@faceless-ui/modal@3.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@faceless-ui/scroll-info@2.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@payloadcms/next@3.88.0(@types/react@19.2.18)(graphql@17.0.2)(monaco-editor@0.56.0)(next@16.3.1(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@17.0.2)(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@5.9.3))(@types/react@19.2.18)(monaco-editor@0.56.0)(next@16.3.1(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@17.0.2)(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@5.9.3)(yjs@13.6.32)
+      '@xdevplatform/xdk':
+        specifier: ^0.6.6
+        version: 0.6.6
       graphql:
         specifier: ^17.0.2
         version: 17.0.2
@@ -1549,6 +1552,15 @@ packages:
     resolution: {integrity: sha512-nAB74NfSNKknqQ1RrYj6uz8FcXEomu/MATJZxh/x+BArzN2U3JbOYC0APYzUIGhVY3m5hRxA8VPNdPBoG8txlA==}
     cpu: [x64]
     os: [win32]
+
+  '@xdevplatform/xdk@0.6.6':
+    resolution: {integrity: sha512-ced4iHSz08eQe1L0N3UWVvJyfGnmGU0CRjecoXpr27dVIyQvc637Pxm3cdP4G85PwhHn5IGVJ1DJF2YD9zWfAg==}
+    engines: {node: '>=16.14'}
+    peerDependencies:
+      node-fetch: ^3.3.0
+    peerDependenciesMeta:
+      node-fetch:
+        optional: true
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -5166,6 +5178,8 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
+
+  '@xdevplatform/xdk@0.6.6': {}
 
   acorn-jsx@5.3.2(acorn@8.18.0):
     dependencies:

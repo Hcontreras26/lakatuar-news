@@ -13,7 +13,10 @@ interface XApiConfig {
 }
 
 function resolveConfig(): XApiConfig | null {
-  const rawToken = process.env.X_API_BEARER_TOKEN || process.env.TWITTER_BEARER_TOKEN;
+  const rawToken =
+    process.env.X_API_BEARER_TOKEN ||
+    process.env.X_BEARER_TOKEN ||
+    process.env.TWITTER_BEARER_TOKEN;
   const username = process.env.X_USERNAME || process.env.TWITTER_USERNAME || "la_katuar";
   const baseUrl = process.env.X_API_BASE_URL || "https://api.x.com/2";
   const revalidateSeconds = Number(process.env.X_FEED_REVALIDATE_SECONDS) || 900;
