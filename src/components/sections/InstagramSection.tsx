@@ -2,14 +2,15 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import type { InstagramPost } from "@/types";
+import type { NormalizedInstagramPost, InstagramPost } from "@/types";
 import InstagramCard from "@/components/ui/InstagramCard";
+import { fallbackInstagramPosts } from "@/services/instagram.service";
 
 export { default as InstagramCard } from "@/components/ui/InstagramCard";
 export type { InstagramCardProps } from "@/components/ui/InstagramCard";
 
 export interface InstagramSectionProps {
-  posts?: InstagramPost[];
+  posts?: (NormalizedInstagramPost | InstagramPost)[];
   accountName?: string;
   accountHandle?: string;
   accountAvatar?: string;
@@ -17,61 +18,8 @@ export interface InstagramSectionProps {
   className?: string;
 }
 
-const defaultInstagramPosts: InstagramPost[] = [
-  {
-    id: 1,
-    tag: "#LAKATUARNEWS",
-    headline: "¡JUSTICIA ROBOLUCIONARIA NO PIDE PERDÓN!",
-    imageUrl: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
-    authorUsername: "la_katuar",
-    authorAvatar: "/presentadora.png",
-    timeAgo: "hace 7 horas",
-    postUrl: "https://instagram.com/la_katuar",
-  },
-  {
-    id: 2,
-    tag: "#LAKATUARNEWS",
-    headline: "APELACIÓN EN CASO DE SUPUESTO PLAN CONTRA DIOSDADO",
-    imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
-    authorUsername: "la_katuar",
-    authorAvatar: "/presentadora.png",
-    timeAgo: "hace 9 horas",
-    postUrl: "https://instagram.com/la_katuar",
-  },
-  {
-    id: 3,
-    tag: "#LAKATUARNEWS",
-    headline: "SE CUMPLE UNA SEMANA DE TERREMOTO EN COLOMBIA",
-    imageUrl: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
-    authorUsername: "la_katuar",
-    authorAvatar: "/presentadora.png",
-    timeAgo: "hace 17 horas",
-    postUrl: "https://instagram.com/la_katuar",
-  },
-  {
-    id: 4,
-    tag: "#LAKATUARNEWS",
-    headline: 'LA "TRAMA DE FAVORES" ENTRE EL RÉGIMEN Y EMPRESA TURCA',
-    imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-    authorUsername: "la_katuar",
-    authorAvatar: "/presentadora.png",
-    timeAgo: "hace 1 día",
-    postUrl: "https://instagram.com/la_katuar",
-  },
-  {
-    id: 5,
-    tag: "#LAKATUARNEWS",
-    headline: "VENEZOLANOS TOMAN EL RODEO I: DENUNCIAS Y CRISIS CARCELARIA",
-    imageUrl: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-    authorUsername: "la_katuar",
-    authorAvatar: "/presentadora.png",
-    timeAgo: "hace 2 días",
-    postUrl: "https://instagram.com/la_katuar",
-  },
-];
-
 export default function InstagramSection({
-  posts = defaultInstagramPosts,
+  posts = fallbackInstagramPosts,
   accountName = "Jessica Vallenilla",
   accountHandle = "la_katuar",
   accountAvatar = "/presentadora.png",

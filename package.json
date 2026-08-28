@@ -2,12 +2,14 @@
   "name": "lakatuar-news",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test:x": "node scripts/test-x-api.mjs",
+    "test:instagram": "node scripts/test-instagram-api.mjs",
     "generate:types": "payload generate:types",
     "generate:importmap": "payload generate:importmap"
   },

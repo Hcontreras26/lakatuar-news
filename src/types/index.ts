@@ -45,18 +45,10 @@ export interface NewsItem {
   url?: string;
 }
 
-export interface InstagramPost {
-  id: number | string;
-  headline: string;
-  tag?: string;
-  imageUrl: string;
-  authorUsername: string;
-  authorAvatar?: string;
-  timeAgo: string;
-  likes?: string | number;
-  comments?: string | number;
-  postUrl?: string;
-}
+export * from "./instagram";
+import type { NormalizedInstagramPost } from "./instagram";
+
+export type InstagramPost = NormalizedInstagramPost;
 
 export interface TweetQuote {
   authorName: string;

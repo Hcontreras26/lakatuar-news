@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { SidebarStory } from "@/types";
 
 export interface SidebarStoryRowProps {
@@ -8,7 +9,7 @@ export interface SidebarStoryRowProps {
 }
 
 export default function SidebarStoryRow({ story, className = "" }: SidebarStoryRowProps): React.JSX.Element {
-  return (
+  const content = (
     <article
       className={`flex items-start justify-between gap-4 border-b border-zinc-200 py-3 last:border-b-0 hover:opacity-80 transition cursor-pointer ${className}`.trim()}
     >
@@ -34,4 +35,14 @@ export default function SidebarStoryRow({ story, className = "" }: SidebarStoryR
       )}
     </article>
   );
+
+  if (story.url) {
+    return (
+      <Link href={story.url} className="block">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

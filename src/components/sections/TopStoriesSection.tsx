@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { MainStory, SidebarStory } from "@/types";
 import SidebarStoryRow from "@/components/ui/SidebarStoryRow";
 import DenunciasBanner from "@/components/ui/DenunciasBanner";
@@ -95,46 +96,91 @@ export default function TopStoriesSection({
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Columna Izquierda: Noticia Principal Stars and Stripes + Banner Promo */}
           <div className="lg:col-span-7">
-            <article className="group cursor-pointer">
-              {/* Imagen / Cabecera de Stars and Stripes */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-zinc-100 shadow-sm">
-                <Image
-                  src={mainStory.image}
-                  alt={mainStory.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 700px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
+            {mainStory.url ? (
+              <Link href={mainStory.url} className="block group">
+                <article className="cursor-pointer">
+                  {/* Imagen / Cabecera de Stars and Stripes */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-zinc-100 shadow-sm">
+                    <Image
+                      src={mainStory.image}
+                      alt={mainStory.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 700px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
 
-                {/* Banner superior simulado del periódico Stars and Stripes */}
-                <div className="absolute top-0 inset-x-0 bg-white/95 px-4 py-2 border-b border-zinc-300 flex items-center justify-between backdrop-blur-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-red-600">
-                      EDITION
-                    </span>
-                    <span className="font-serif text-sm font-black uppercase tracking-tighter text-zinc-900 sm:text-lg">
-                      STARS <span className="text-red-600">AND</span> STRIPES
+                    {/* Banner superior simulado del periódico Stars and Stripes */}
+                    <div className="absolute top-0 inset-x-0 bg-white/95 px-4 py-2 border-b border-zinc-300 flex items-center justify-between backdrop-blur-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-red-600">
+                          EDITION
+                        </span>
+                        <span className="font-serif text-sm font-black uppercase tracking-tighter text-zinc-900 sm:text-lg">
+                          STARS <span className="text-red-600">AND</span> STRIPES
+                        </span>
+                      </div>
+                      <span className="text-[9px] font-semibold text-zinc-500 uppercase">
+                        FRIDAY, JUNE 26, 2026
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Título y Resumen */}
+                  <div className="mt-4">
+                    <h3 className="font-serif text-2xl font-black leading-tight text-zinc-950 transition group-hover:text-red-600 sm:text-3xl">
+                      {mainStory.title}
+                    </h3>
+                    <p className="mt-2.5 text-sm leading-relaxed text-zinc-600 sm:text-base">
+                      {mainStory.summary}
+                    </p>
+                    <span className="mt-2 inline-block text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                      {mainStory.date}
                     </span>
                   </div>
-                  <span className="text-[9px] font-semibold text-zinc-500 uppercase">
-                    FRIDAY, JUNE 26, 2026
+                </article>
+              </Link>
+            ) : (
+              <article className="group cursor-pointer">
+                {/* Imagen / Cabecera de Stars and Stripes */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-zinc-100 shadow-sm">
+                  <Image
+                    src={mainStory.image}
+                    alt={mainStory.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 700px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+
+                  {/* Banner superior simulado del periódico Stars and Stripes */}
+                  <div className="absolute top-0 inset-x-0 bg-white/95 px-4 py-2 border-b border-zinc-300 flex items-center justify-between backdrop-blur-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-red-600">
+                        EDITION
+                      </span>
+                      <span className="font-serif text-sm font-black uppercase tracking-tighter text-zinc-900 sm:text-lg">
+                        STARS <span className="text-red-600">AND</span> STRIPES
+                      </span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-zinc-500 uppercase">
+                      FRIDAY, JUNE 26, 2026
+                    </span>
+                  </div>
+                </div>
+
+                {/* Título y Resumen */}
+                <div className="mt-4">
+                  <h3 className="font-serif text-2xl font-black leading-tight text-zinc-950 transition group-hover:text-red-600 sm:text-3xl">
+                    {mainStory.title}
+                  </h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-zinc-600 sm:text-base">
+                    {mainStory.summary}
+                  </p>
+                  <span className="mt-2 inline-block text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                    {mainStory.date}
                   </span>
                 </div>
-              </div>
-
-              {/* Título y Resumen */}
-              <div className="mt-4">
-                <h3 className="font-serif text-2xl font-black leading-tight text-zinc-950 transition group-hover:text-red-600 sm:text-3xl">
-                  {mainStory.title}
-                </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-zinc-600 sm:text-base">
-                  {mainStory.summary}
-                </p>
-                <span className="mt-2 inline-block text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                  {mainStory.date}
-                </span>
-              </div>
-            </article>
+              </article>
+            )}
 
             {/* Banner de Denuncias y Emisión con QR */}
             <DenunciasBanner />

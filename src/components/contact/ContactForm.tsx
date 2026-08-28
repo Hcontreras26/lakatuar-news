@@ -80,10 +80,24 @@ export default function ContactForm(): React.JSX.Element {
       return;
     }
 
-    // Simulación de envío
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/denuncias", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "No se pudo enviar la comunicación.");
+      }
+
       setStatus("success");
-    }, 900);
+    } catch (err: unknown) {
+      setStatus("error");
+      const msg = err instanceof Error ? err.message : "Ocurrió un error inesperado al enviar.";
+      setErrorMessage(msg);
+    }
   };
 
   const handleReset = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -27,16 +27,12 @@ function extractTweetId(input: string): string {
 
 export default function TwitterEmbed({ tweetIdOrUrl, className = "" }: TwitterEmbedProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isRendered, setIsRendered] = useState<boolean>(false);
   const tweetId = extractTweetId(tweetIdOrUrl);
 
   useEffect(() => {
-    let active = true;
-
     const tryLoadWidgets = () => {
       if (typeof window !== "undefined" && window.twttr?.widgets && containerRef.current) {
         window.twttr.widgets.load(containerRef.current);
-        if (active) setIsRendered(true);
       }
     };
 
@@ -51,11 +47,9 @@ export default function TwitterEmbed({ tweetIdOrUrl, className = "" }: TwitterEm
 
     const timeout = setTimeout(() => {
       clearInterval(interval);
-      if (active) setIsRendered(true);
     }, 4000);
 
     return () => {
-      active = false;
       clearInterval(interval);
       clearTimeout(timeout);
     };

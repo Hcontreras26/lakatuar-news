@@ -4,6 +4,11 @@ import { buildConfig } from 'payload';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { Users } from './collections/Users';
+import { Media } from './collections/Media';
+import { Categories } from './collections/Categories';
+import { Articles } from './collections/Articles';
+import { Denuncias } from './collections/Denuncias';
+import { SiteSettings } from './globals/SiteSettings';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -15,7 +20,16 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users],
+  collections: [
+    Articles,
+    Categories,
+    Media,
+    Denuncias,
+    Users,
+  ],
+  globals: [
+    SiteSettings,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

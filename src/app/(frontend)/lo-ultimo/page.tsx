@@ -96,7 +96,99 @@ const BREAKING_TICKER = [
   "Comunidad internacional exige liberación inmediata de periodistas y presos políticos",
 ];
 
-export default function LoUltimoPage(): React.JSX.Element {
+import { getLatestArticles } from "@/lib/payload";
+
+export default async function LoUltimoPage(): Promise<React.JSX.Element> {
+  const articlesRes = await getLatestArticles({ limit: 10 });
+  const cmsArticles = articlesRes.docs;
+
+  const mainArticle: NewsArticle = cmsArticles[0]
+    ? {
+        id: String(cmsArticles[0].id),
+        category:
+          typeof cmsArticles[0].category === "object"
+            ? cmsArticles[0].category.name
+            : "ACTUALIDAD",
+        title: cmsArticles[0].title,
+        summary: cmsArticles[0].summary,
+        caption: cmsArticles[0].caption || undefined,
+        sourceOrAuthor: cmsArticles[0].sourceOrAuthor || "Redacción Lakatuar",
+        image:
+          typeof cmsArticles[0].coverImage === "object" &&
+          cmsArticles[0].coverImage?.url
+            ? cmsArticles[0].coverImage.url
+            : MAIN_ARTICLE.image,
+        url: `/noticias/${cmsArticles[0].slug}`,
+      }
+    : MAIN_ARTICLE;
+
+  const centerStories: NewsArticle[] = [
+    cmsArticles[1]
+      ? {
+          id: String(cmsArticles[1].id),
+          category:
+            typeof cmsArticles[1].category === "object"
+              ? cmsArticles[1].category.name
+              : "VENEZUELA",
+          title: cmsArticles[1].title,
+          summary: cmsArticles[1].summary,
+          sourceOrAuthor: cmsArticles[1].sourceOrAuthor || "Redacción Lakatuar",
+          url: `/noticias/${cmsArticles[1].slug}`,
+        }
+      : CENTER_STORIES[0],
+    cmsArticles[2]
+      ? {
+          id: String(cmsArticles[2].id),
+          category:
+            typeof cmsArticles[2].category === "object"
+              ? cmsArticles[2].category.name
+              : "POLÍTICA",
+          title: cmsArticles[2].title,
+          caption: cmsArticles[2].caption || undefined,
+          sourceOrAuthor: cmsArticles[2].sourceOrAuthor || "Redacción Lakatuar",
+          image:
+            typeof cmsArticles[2].coverImage === "object" &&
+            cmsArticles[2].coverImage?.url
+              ? cmsArticles[2].coverImage.url
+              : CENTER_STORIES[1].image,
+          url: `/noticias/${cmsArticles[2].slug}`,
+        }
+      : CENTER_STORIES[1],
+  ];
+
+  const rightStories: NewsArticle[] = [
+    cmsArticles[3]
+      ? {
+          id: String(cmsArticles[3].id),
+          category:
+            typeof cmsArticles[3].category === "object"
+              ? cmsArticles[3].category.name
+              : "ECONOMÍA",
+          title: cmsArticles[3].title,
+          caption: cmsArticles[3].caption || undefined,
+          sourceOrAuthor: cmsArticles[3].sourceOrAuthor || "Redacción Lakatuar",
+          image:
+            typeof cmsArticles[3].coverImage === "object" &&
+            cmsArticles[3].coverImage?.url
+              ? cmsArticles[3].coverImage.url
+              : RIGHT_STORIES[0].image,
+          url: `/noticias/${cmsArticles[3].slug}`,
+        }
+      : RIGHT_STORIES[0],
+    cmsArticles[4]
+      ? {
+          id: String(cmsArticles[4].id),
+          category:
+            typeof cmsArticles[4].category === "object"
+              ? cmsArticles[4].category.name
+              : "REGIONAL",
+          title: cmsArticles[4].title,
+          summary: cmsArticles[4].summary,
+          sourceOrAuthor: cmsArticles[4].sourceOrAuthor || "Redacción Lakatuar",
+          url: `/noticias/${cmsArticles[4].slug}`,
+        }
+      : RIGHT_STORIES[1],
+  ];
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
       <Header />
@@ -159,47 +251,49 @@ export default function LoUltimoPage(): React.JSX.Element {
               <article className="lg:col-span-5 flex flex-col justify-between">
                 <div>
                   {/* Fotografía Principal */}
-                  <div className="relative aspect-[16/11] w-full overflow-hidden bg-zinc-100">
-                    <Image
-                      src={MAIN_ARTICLE.image!}
-                      alt={MAIN_ARTICLE.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 450px"
-                      className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                      priority
-                    />
-                  </div>
+                  {mainArticle.image && (
+                    <div className="relative aspect-[16/11] w-full overflow-hidden bg-zinc-100">
+                      <Image
+                        src={mainArticle.image}
+                        alt={mainArticle.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 450px"
+                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                        priority
+                      />
+                    </div>
+                  )}
 
                   {/* Pie de foto */}
-                  {MAIN_ARTICLE.caption && (
+                  {mainArticle.caption && (
                     <p className="mt-1.5 text-right text-[10px] font-normal italic text-zinc-600">
-                      {MAIN_ARTICLE.caption}
+                      {mainArticle.caption}
                     </p>
                   )}
 
                   {/* Categoría */}
                   <div className="mt-3">
                     <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
-                      {MAIN_ARTICLE.category}
+                      {mainArticle.category}
                     </span>
                   </div>
 
                   {/* Titular Principal */}
                   <h2 className="mt-2.5 font-serif text-2xl font-black leading-tight tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-3xl">
-                    <a href={MAIN_ARTICLE.url ?? "#"}>
-                      {MAIN_ARTICLE.title}
-                    </a>
+                    <Link href={mainArticle.url ?? "#"}>
+                      {mainArticle.title}
+                    </Link>
                   </h2>
 
                   {/* Resumen Periodístico */}
                   <p className="mt-3 text-xs leading-relaxed text-zinc-700 sm:text-sm">
-                    {MAIN_ARTICLE.summary}
+                    {mainArticle.summary}
                   </p>
                 </div>
 
                 {/* Fuente / Autor */}
                 <div className="mt-4 border-t border-zinc-200 pt-2.5 text-xs font-semibold text-zinc-900">
-                  {MAIN_ARTICLE.sourceOrAuthor}
+                  {mainArticle.sourceOrAuthor}
                 </div>
               </article>
 
@@ -209,33 +303,33 @@ export default function LoUltimoPage(): React.JSX.Element {
                 {/* Noticia 1 Superior */}
                 <article className="pb-6 border-b border-zinc-200">
                   <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
-                    {CENTER_STORIES[0].category}
+                    {centerStories[0].category}
                   </span>
 
                   <h3 className="mt-2 font-serif text-lg font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-xl">
-                    <a href={CENTER_STORIES[0].url ?? "#"}>
-                      {CENTER_STORIES[0].title}
-                    </a>
+                    <Link href={centerStories[0].url ?? "#"}>
+                      {centerStories[0].title}
+                    </Link>
                   </h3>
 
-                  {CENTER_STORIES[0].summary && (
+                  {centerStories[0].summary && (
                     <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
-                      {CENTER_STORIES[0].summary}
+                      {centerStories[0].summary}
                     </p>
                   )}
 
                   <p className="mt-3 text-xs font-semibold text-zinc-900">
-                    {CENTER_STORIES[0].sourceOrAuthor}
+                    {centerStories[0].sourceOrAuthor}
                   </p>
                 </article>
 
                 {/* Noticia 2 Inferior con Fotografía */}
                 <article className="pt-2">
-                  {CENTER_STORIES[1].image && (
+                  {centerStories[1].image && (
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
                       <Image
-                        src={CENTER_STORIES[1].image}
-                        alt={CENTER_STORIES[1].title}
+                        src={centerStories[1].image}
+                        alt={centerStories[1].title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 360px"
                         className="object-cover transition-transform duration-500 hover:scale-[1.02]"
@@ -243,26 +337,26 @@ export default function LoUltimoPage(): React.JSX.Element {
                     </div>
                   )}
 
-                  {CENTER_STORIES[1].caption && (
+                  {centerStories[1].caption && (
                     <p className="mt-1.5 text-[9.5px] leading-tight text-zinc-600">
-                      {CENTER_STORIES[1].caption}
+                      {centerStories[1].caption}
                     </p>
                   )}
 
                   <div className="mt-2.5">
                     <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
-                      {CENTER_STORIES[1].category}
+                      {centerStories[1].category}
                     </span>
                   </div>
 
                   <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
-                    <a href={CENTER_STORIES[1].url ?? "#"}>
-                      {CENTER_STORIES[1].title}
-                    </a>
+                    <Link href={centerStories[1].url ?? "#"}>
+                      {centerStories[1].title}
+                    </Link>
                   </h3>
 
                   <p className="mt-2.5 text-xs font-semibold text-zinc-900">
-                    {CENTER_STORIES[1].sourceOrAuthor}
+                    {centerStories[1].sourceOrAuthor}
                   </p>
                 </article>
 
@@ -273,11 +367,11 @@ export default function LoUltimoPage(): React.JSX.Element {
                 
                 {/* Noticia Superior con Pescador */}
                 <article className="pb-6 border-b border-zinc-200">
-                  {RIGHT_STORIES[0].image && (
+                  {rightStories[0].image && (
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
                       <Image
-                        src={RIGHT_STORIES[0].image}
-                        alt={RIGHT_STORIES[0].title}
+                        src={rightStories[0].image}
+                        alt={rightStories[0].title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 300px"
                         className="object-cover transition-transform duration-500 hover:scale-[1.02]"
@@ -285,49 +379,49 @@ export default function LoUltimoPage(): React.JSX.Element {
                     </div>
                   )}
 
-                  {RIGHT_STORIES[0].caption && (
+                  {rightStories[0].caption && (
                     <p className="mt-1.5 text-right text-[9.5px] leading-tight text-zinc-600">
-                      {RIGHT_STORIES[0].caption}
+                      {rightStories[0].caption}
                     </p>
                   )}
 
                   <div className="mt-2.5">
                     <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
-                      {RIGHT_STORIES[0].category}
+                      {rightStories[0].category}
                     </span>
                   </div>
 
                   <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
-                    <a href={RIGHT_STORIES[0].url ?? "#"}>
-                      {RIGHT_STORIES[0].title}
-                    </a>
+                    <Link href={rightStories[0].url ?? "#"}>
+                      {rightStories[0].title}
+                    </Link>
                   </h3>
 
                   <p className="mt-2 text-xs font-semibold text-zinc-900">
-                    {RIGHT_STORIES[0].sourceOrAuthor}
+                    {rightStories[0].sourceOrAuthor}
                   </p>
                 </article>
 
                 {/* Noticia Inferior Regional */}
                 <article className="pt-2">
                   <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
-                    {RIGHT_STORIES[1].category}
+                    {rightStories[1].category}
                   </span>
 
                   <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
-                    <a href={RIGHT_STORIES[1].url ?? "#"}>
-                      {RIGHT_STORIES[1].title}
-                    </a>
+                    <Link href={rightStories[1].url ?? "#"}>
+                      {rightStories[1].title}
+                    </Link>
                   </h3>
 
-                  {RIGHT_STORIES[1].summary && (
+                  {rightStories[1].summary && (
                     <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
-                      {RIGHT_STORIES[1].summary}
+                      {rightStories[1].summary}
                     </p>
                   )}
 
                   <p className="mt-2.5 text-xs font-semibold text-zinc-900">
-                    {RIGHT_STORIES[1].sourceOrAuthor}
+                    {rightStories[1].sourceOrAuthor}
                   </p>
                 </article>
 
