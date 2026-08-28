@@ -56,10 +56,10 @@ export default function Footer({
               aria-label="Ir al inicio de La Katuar News"
               className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-red-600 p-2 text-center shadow-lg transition-transform hover:scale-105 sm:h-24 sm:w-24"
             >
-              <span className="text-xs font-black leading-tight tracking-tight text-white uppercase sm:text-sm">
+              <span className="font-brand text-xs font-black leading-tight tracking-tight text-white uppercase sm:text-sm">
                 {brandName}
               </span>
-              <span className="text-[10px] font-bold leading-tight tracking-wider text-white/90 uppercase sm:text-xs">
+              <span className="font-brand text-[10px] font-bold leading-tight tracking-wider text-white/90 uppercase sm:text-xs">
                 {brandSubname}
               </span>
             </Link>

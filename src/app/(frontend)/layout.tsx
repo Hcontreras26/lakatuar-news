@@ -12,18 +12,22 @@ const hiraginoSans = localFont({
     },
   ],
   variable: "--font-hiragino",
-  display: "swap",
-  fallback: ["system-ui", "-apple-system", "sans-serif"],
+  display: "block",
+  preload: true,
 });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "block",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "block",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -39,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
   return (
     <html
       lang="es"
-      className={`${hiraginoSans.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${hiraginoSans.variable} ${geistSans.variable} ${geistMono.variable} ${geistSans.className} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#120404] text-white">{children}</body>
     </html>

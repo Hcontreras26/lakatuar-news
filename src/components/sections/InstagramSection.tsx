@@ -119,10 +119,10 @@ export default function InstagramSection({
             type="button"
             onClick={() => handleScroll("left")}
             aria-label="Deslizar a la izquierda"
-            className="absolute -left-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg backdrop-blur-sm transition hover:bg-white hover:text-black md:flex lg:-left-5"
+            className="absolute -left-6 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border-2 border-zinc-200 bg-white text-zinc-700 shadow-md transition-all duration-200 hover:scale-110 hover:border-red-600 hover:text-red-600 hover:shadow-xl active:scale-95 md:flex lg:-left-12 xl:-left-14 h-12 w-12"
           >
-            <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
@@ -142,10 +142,10 @@ export default function InstagramSection({
             type="button"
             onClick={() => handleScroll("right")}
             aria-label="Deslizar a la derecha"
-            className="absolute -right-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/95 p-2.5 text-zinc-700 shadow-lg backdrop-blur-sm transition hover:bg-white hover:text-black md:flex lg:-right-5"
+            className="absolute -right-6 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border-2 border-zinc-200 bg-white text-zinc-700 shadow-md transition-all duration-200 hover:scale-110 hover:border-red-600 hover:text-red-600 hover:shadow-xl active:scale-95 md:flex lg:-right-12 xl:-right-14 h-12 w-12"
           >
-            <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
@@ -158,11 +158,10 @@ export default function InstagramSection({
               type="button"
               onClick={() => scrollToIndex(idx)}
               aria-label={`Ir a publicación ${idx + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                activeIndex === idx
+              className={`h-2 rounded-full transition-all duration-300 ${activeIndex === idx
                   ? "w-6 bg-red-600"
                   : "w-2 bg-zinc-300 hover:bg-zinc-400"
-              }`}
+                }`}
             />
           ))}
         </div>

@@ -20,6 +20,7 @@ export interface ProgramInfo {
   liveUrl?: string;
   imageUrl?: string;
   presenterImageUrl?: string;
+  presenterName?: string;
   isLive?: boolean;
   videoId?: string;
   videoUrl?: string;

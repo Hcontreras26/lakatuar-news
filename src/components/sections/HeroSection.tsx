@@ -69,21 +69,31 @@ export default function HeroSection({
           {/* Bloque Informativo */}
           <div className="z-10 flex flex-col items-start lg:col-span-5">
             <div>
-              <h1 className="text-4xl font-black uppercase tracking-tight leading-[0.95] text-white sm:text-5xl lg:text-6xl">
+              <h1 className="font-brand text-4xl font-black uppercase tracking-tight leading-none text-white sm:text-5xl lg:text-6xl">
                 {brandName}
               </h1>
-              <span className="mt-1 block text-3xl font-light uppercase tracking-widest leading-[0.95] text-white sm:text-4xl lg:text-5xl">
+              <span className="font-brand mt-1 block text-3xl font-light uppercase tracking-widest leading-none text-white sm:text-4xl lg:text-5xl">
                 {brandSubname}
               </span>
             </div>
 
             <div className="mt-8 sm:mt-10 lg:mt-16">
               <div className="flex items-center gap-2 mb-2">
-                <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-md">
-                  EN LA MIRA
-                </span>
+                {programInfo.isLive ? (
+                  <span className="flex items-center gap-1.5 rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-md">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    EN VIVO AHORA
+                  </span>
+                ) : (
+                  <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-md">
+                    {programInfo.badge || "EN LA MIRA"}
+                  </span>
+                )}
                 <span className="text-xs font-semibold text-red-200/90 uppercase tracking-wider">
-                  con La Katuar
+                  con {programInfo.presenterName || "La Katuar"}
                 </span>
               </div>
               <h2 className="text-xl font-bold uppercase tracking-tight text-white sm:text-2xl lg:text-3xl">
@@ -125,7 +135,7 @@ export default function HeroSection({
             {/* Imagen de la presentadora */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -top-16 -right-2 z-0 flex justify-end sm:-top-24 sm:-right-6 md:-right-10 lg:-top-32 lg:-right-20 xl:-top-36 xl:-right-28 2xl:-right-36"
+              className="mask-gradient-b pointer-events-none absolute -top-16 -right-2 z-0 flex justify-end sm:-top-24 sm:-right-6 md:-right-10 lg:-top-32 lg:-right-20 xl:-top-36 xl:-right-28 2xl:-right-36"
             >
               <Image
                 src={presenterImage}
@@ -133,7 +143,7 @@ export default function HeroSection({
                 width={800}
                 height={1000}
                 priority
-                className="mask-gradient-b h-[440px] w-auto max-w-none select-none object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.7)] sm:h-[520px] lg:h-[580px] xl:h-[640px]"
+                className="h-[440px] w-auto max-w-none select-none object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.7)] sm:h-[520px] lg:h-[580px] xl:h-[640px]"
               />
             </div>
 

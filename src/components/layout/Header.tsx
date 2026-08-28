@@ -14,6 +14,8 @@ export interface HeaderProps {
   brandSubname?: string;
   navItems?: NavItem[];
   socialLinks?: SocialLink[];
+  announcement?: string;
+  isLive?: boolean;
   className?: string;
 }
 
@@ -83,6 +85,8 @@ export default function Header({
   brandSubname = "NEWS",
   navItems = defaultNavItems,
   socialLinks = defaultSocialLinks,
+  announcement,
+  isLive = false,
   className = "",
 }: HeaderProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -117,10 +121,19 @@ export default function Header({
 
   return (
     <>
+      {announcement && announcement.trim().length > 0 && (
+        <div className="bg-red-700 text-white text-xs font-bold py-1.5 px-4 text-center tracking-wide flex items-center justify-center gap-2 border-b border-red-800 z-50 relative">
+          <span className="bg-black/30 px-2 py-0.5 rounded text-[10px] uppercase font-black tracking-widest animate-pulse">
+            ÚLTIMA HORA
+          </span>
+          <span>{announcement}</span>
+        </div>
+      )}
+
       <header
         className={`sticky top-0 z-40 bg-[#120404]/95 backdrop-blur-md border-b border-red-950/40 ${className}`.trim()}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-h-[58px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-6">
             <Link
               href="/"
@@ -131,10 +144,10 @@ export default function Header({
                 LK
               </span>
               <div className="flex flex-col">
-                <span className="text-xs font-black uppercase tracking-wider text-white">
+                <span className="font-brand text-xs font-black uppercase tracking-wider text-white">
                   {brandName}
                 </span>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-red-500">
+                <span className="font-brand text-[9px] font-bold uppercase tracking-widest text-red-500">
                   {brandSubname}
                 </span>
               </div>
@@ -146,6 +159,20 @@ export default function Header({
             >
               {navItems.map((item) => {
                 const isExternal = item.href.startsWith("http");
+                const isLiveItem = item.href.includes("en-vivo") || item.label.toLowerCase().includes("vivo");
+
+                const labelContent = (
+                  <span className="flex items-center gap-1.5">
+                    {item.label}
+                    {isLive && isLiveItem && (
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                      </span>
+                    )}
+                  </span>
+                );
+
                 return isExternal ? (
                   <a
                     key={item.label}
@@ -154,7 +181,7 @@ export default function Header({
                     rel="noopener noreferrer"
                     className="transition-colors duration-200 hover:text-red-400"
                   >
-                    {item.label}
+                    {labelContent}
                   </a>
                 ) : (
                   <Link
@@ -162,7 +189,7 @@ export default function Header({
                     href={item.href}
                     className="transition-colors duration-200 hover:text-red-400"
                   >
-                    {item.label}
+                    {labelContent}
                   </Link>
                 );
               })}

@@ -73,43 +73,53 @@ export default function InstagramCard({
           </span>
         </div>
 
-        {/* Contenido Inferior de la Tarjeta */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end p-4">
+        {/* Contenedor del titular que se expande hacia arriba en hover */}
+        <div className="absolute inset-x-0 bottom-9 z-10 px-3.5">
           <a
             href={postUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-2.5 block rounded bg-white/95 p-2.5 shadow-lg backdrop-blur-sm transition hover:bg-white"
+            className="line-clamp-4 block rounded-lg border border-white/20 bg-black/85 p-3 text-white shadow-xl backdrop-blur-md transition-all duration-300 group-hover:bg-black/95"
           >
-            <h3 className="line-clamp-2 text-sm font-black uppercase leading-tight tracking-tight text-zinc-950 sm:text-base">
+            {/* En reposo 2 líneas, en hover se expande sin límite */}
+            <h3 className="line-clamp-2 text-xs font-bold leading-snug transition-all duration-300 group-hover:line-clamp-none sm:text-sm">
               {post.headline}
             </h3>
           </a>
+        </div>
 
-          <div className="flex items-center justify-between rounded border border-red-900/40 bg-gradient-to-r from-zinc-950 via-[#2a0407] to-zinc-950 px-2.5 py-1.5">
-            <div className="flex items-center gap-1.5">
-              <span className="rounded bg-red-600 px-1 py-0.5 text-[8px] font-black uppercase text-white">
-                EN LA
-              </span>
-              <span className="text-xs font-black uppercase tracking-wide text-white">
-                MIRA
-              </span>
-              <span className="text-[10px] font-medium text-zinc-300">
-                ... con La Katuar
-              </span>
-            </div>
 
-            {Boolean(post.likes || ("likeCount" in post && post.likeCount)) && (
-              <span className="text-[10px] font-semibold text-zinc-400">
-                ❤️ {post.likes || ("likeCount" in post ? post.likeCount : "")}
-              </span>
-            )}
+        {/* Cintillo En La Mira pegado al borde inferior sin separación */}
+        <div className="absolute inset-x-0 -bottom-px z-10 flex items-center justify-between border-t border-red-900/40 bg-gradient-to-r from-zinc-950 via-[#2a0407] to-zinc-950 px-3.5 py-1.5">
+          <div className="flex items-center gap-1.5">
+            <span className="rounded bg-red-600 px-1 py-0.5 text-[8px] font-black uppercase text-white">
+              EN LA
+            </span>
+            <span className="text-xs font-black uppercase tracking-wide text-white">
+              MIRA
+            </span>
+            <span className="text-[10px] font-medium text-zinc-300">
+              ... con La Katuar
+            </span>
           </div>
+
+          {Boolean(post.likes || ("likeCount" in post && post.likeCount)) && (
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold leading-none text-zinc-300">
+              <svg
+                className="h-3 w-3 fill-red-500 shrink-0 -translate-y-[0.5px]"
+                viewBox="0 0 24 24"
+                aria-label="Me gusta"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+              <span className="leading-none">{post.likes || ("likeCount" in post ? post.likeCount : "")}</span>
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Barra Inferior del Autor */}
-      <div className="flex items-center justify-between border-t border-zinc-800 bg-[#0c0c0c] px-3.5 py-2.5 text-white">
+      {/* Barra Inferior del Autor (unida directamente sin borde gris divisorio) */}
+      <div className="relative -mt-px flex items-center justify-between bg-[#0c0c0c] px-3.5 py-2.5 text-white">
         <div className="flex items-center gap-2">
           <div className="relative h-6 w-6 overflow-hidden rounded-full border border-red-500">
             <Image
