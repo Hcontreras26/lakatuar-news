@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { NavItem, SocialLink, SocialIconType } from "@/types";
 
 export interface SocialIconProps {
@@ -137,20 +138,17 @@ export default function Header({
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="flex items-center gap-2.5 group transition-opacity hover:opacity-90"
+              className="flex items-center group transition-opacity hover:opacity-90 py-1"
               aria-label={`${brandName} ${brandSubname} - Inicio`}
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 font-black text-[10px] uppercase text-white shadow-md transition-transform group-hover:scale-105">
-                LK
-              </span>
-              <div className="flex flex-col">
-                <span className="font-brand text-xs font-black uppercase tracking-wider text-white">
-                  {brandName}
-                </span>
-                <span className="font-brand text-[9px] font-bold uppercase tracking-widest text-red-500">
-                  {brandSubname}
-                </span>
-              </div>
+              <Image
+                src="/logo-header.png"
+                alt="LA KATUAR NEWS"
+                width={170}
+                height={42}
+                priority
+                className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+              />
             </Link>
 
             <nav
@@ -269,19 +267,16 @@ export default function Header({
             <Link
               href="/"
               onClick={closeMenu}
-              className="flex items-center gap-2.5"
+              className="flex items-center"
+              aria-label="LA KATUAR NEWS - Inicio"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-600 font-black text-xs uppercase text-white shadow-md">
-                LK
-              </span>
-              <div className="flex flex-col">
-                <span className="text-sm font-black uppercase tracking-wider text-white">
-                  {brandName}
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-red-500">
-                  {brandSubname}
-                </span>
-              </div>
+              <Image
+                src="/logo-header.png"
+                alt="LA KATUAR NEWS"
+                width={160}
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
 
             <button

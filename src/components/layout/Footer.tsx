@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { FooterLink } from "@/types";
 
 export interface FooterProps {
@@ -49,19 +50,20 @@ export default function Footer({
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10">
-          {/* Logo Circular Rojo LA KATUAR NEWS */}
+          {/* Isotipo Circular LA KATUAR NEWS */}
           <div className="flex-shrink-0">
             <Link
               href="/"
               aria-label="Ir al inicio de La Katuar News"
-              className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-red-600 p-2 text-center shadow-lg transition-transform hover:scale-105 sm:h-24 sm:w-24"
+              className="block group"
             >
-              <span className="font-brand text-xs font-black leading-tight tracking-tight text-white uppercase sm:text-sm">
-                {brandName}
-              </span>
-              <span className="font-brand text-[10px] font-bold leading-tight tracking-wider text-white/90 uppercase sm:text-xs">
-                {brandSubname}
-              </span>
+              <Image
+                src="/isotipo.png"
+                alt="LA KATUAR NEWS"
+                width={96}
+                height={96}
+                className="h-20 w-20 sm:h-24 sm:w-24 object-contain rounded-full shadow-lg transition-transform group-hover:scale-105"
+              />
             </Link>
           </div>
 
