@@ -148,22 +148,23 @@ export default async function ArticlePage({
       : DEMO_ARTICLE.tags;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#120404] text-white antialiased">
+    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
       <Header />
 
       <main className="flex-1">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          {/* Breadcrumb de Categoría estilo Diario Profesional */}
-          <nav aria-label="Ruta de categoría" className="mb-4 flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-500">
-            <Link href="/" className="text-zinc-400 hover:text-white transition-colors">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+          
+          {/* Breadcrumb idéntico al estilo de Contacto */}
+          <nav aria-label="Ruta de navegación" className="mb-6 flex items-center gap-2 text-xs text-zinc-400">
+            <Link href="/" className="transition-colors hover:text-white">
               Inicio
             </Link>
             <span className="text-zinc-600">/</span>
-            <Link href="/lo-ultimo" className="text-zinc-400 hover:text-white transition-colors">
+            <Link href="/lo-ultimo" className="transition-colors hover:text-white">
               Noticias
             </Link>
             <span className="text-zinc-600">/</span>
-            <span className="text-red-500">{categoryName}</span>
+            <span className="font-medium text-zinc-200">{categoryName}</span>
           </nav>
 
           {/* Grid Principal: Contenido de la Nota a la izquierda (8 cols), Barras laterales a la derecha (4 cols) */}
@@ -174,22 +175,29 @@ export default async function ArticlePage({
             {/* ========================================================= */}
             <article className="lg:col-span-8">
               
-              {/* Tarjeta de Contenedor estilo Contacto (Dark Glassmorphism Elevado) */}
-              <div className="rounded-2xl border border-red-950/70 bg-[#180506]/95 p-5 shadow-2xl backdrop-blur-md sm:p-8 lg:p-9">
+              {/* Tarjeta de Contenedor Principal: Estilo Contacto (bg-zinc-900 con border-t-2 border-t-red-600) */}
+              <div className="rounded-xl border border-zinc-700/80 bg-zinc-900 p-5 shadow-2xl shadow-black/60 sm:p-7 lg:p-8 border-t-2 border-t-red-600">
                 
-                {/* 1. Titular Principal */}
-                <h1 className="font-serif text-2xl font-black leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl">
+                {/* 1. Categoría Tag */}
+                <div className="mb-3">
+                  <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                    {categoryName}
+                  </span>
+                </div>
+
+                {/* 2. Titular Principal */}
+                <h1 className="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl lg:text-4xl leading-tight">
                   {title}
                 </h1>
 
-                {/* 2. Epígrafe / Bajada Descriptiva */}
+                {/* 3. Epígrafe / Bajada Descriptiva */}
                 {summary && (
-                  <p className="mt-3.5 border-l-2 border-red-600 pl-4 text-sm leading-relaxed text-zinc-300 sm:text-base font-normal italic">
+                  <p className="mt-3.5 border-l-2 border-red-600 pl-4 text-xs leading-relaxed text-zinc-300 sm:text-sm font-normal italic">
                     {summary}
                   </p>
                 )}
 
-                {/* 3. Barra de Acciones Inteligentes (Escuchar, Puntos Clave, Resumen, Redes) */}
+                {/* 4. Barra de Acciones Inteligentes (Escuchar, Puntos Clave, Resumen, Redes) */}
                 <div className="mt-6">
                   <ArticleActionsBar
                     title={title}
@@ -198,10 +206,10 @@ export default async function ArticlePage({
                   />
                 </div>
 
-                {/* 4. Fotografía Principal de la Noticia */}
+                {/* 5. Fotografía Principal de la Noticia */}
                 {coverUrl && (
                   <figure className="my-6">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-xl">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-md">
                       <Image
                         src={coverUrl}
                         alt={title}
@@ -212,31 +220,31 @@ export default async function ArticlePage({
                       />
                     </div>
                     {caption && (
-                      <figcaption className="mt-2 text-right text-[11px] font-normal italic text-zinc-400">
+                      <figcaption className="mt-2 text-right text-[10px] font-normal italic text-zinc-400">
                         {caption}
                       </figcaption>
                     )}
                   </figure>
                 )}
 
-                {/* 5. Fecha, Hora y Autoría */}
-                <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-red-950/60 pb-3 text-xs text-zinc-400">
+                {/* 6. Fecha, Hora y Autoría */}
+                <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-3 text-xs text-zinc-400">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-white">{author}</span>
+                    <span className="font-semibold text-zinc-200">Por: {author}</span>
                     <span>•</span>
                     <span>
                       {formattedDate} {formattedTime} EST
                     </span>
                   </div>
-                  <span className="rounded bg-red-950/80 border border-red-800/60 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                  <span className="rounded border border-zinc-800 bg-zinc-950 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-zinc-300">
                     VERIFICADO
                   </span>
                 </div>
 
-                {/* 6. Cuerpo del Artículo */}
-                <div className="space-y-4 text-sm sm:text-base leading-relaxed text-zinc-200">
+                {/* 7. Cuerpo del Artículo */}
+                <div className="space-y-4 text-xs sm:text-sm leading-relaxed text-zinc-300">
                   {article?.content ? (
-                    <div className="prose prose-invert max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-white prose-p:leading-relaxed prose-p:text-zinc-200 prose-a:text-red-400 prose-strong:text-white prose-blockquote:border-l-4 prose-blockquote:border-red-600 prose-blockquote:bg-red-950/30 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:italic">
+                    <div className="prose prose-invert max-w-none prose-headings:font-bold prose-headings:text-white prose-p:leading-relaxed prose-p:text-zinc-300 prose-a:text-red-500 prose-strong:text-white prose-blockquote:border-l-4 prose-blockquote:border-red-600 prose-blockquote:bg-zinc-950/60 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:italic">
                       <RichText data={article.content} />
                     </div>
                   ) : (
@@ -245,7 +253,7 @@ export default async function ArticlePage({
                         key={idx}
                         className={
                           idx === 0
-                            ? "text-base sm:text-lg font-medium text-zinc-100 leading-relaxed"
+                            ? "text-sm sm:text-base font-medium text-zinc-100 leading-relaxed"
                             : "leading-relaxed text-zinc-300"
                         }
                         dangerouslySetInnerHTML={{
@@ -259,16 +267,16 @@ export default async function ArticlePage({
                   )}
                 </div>
 
-                {/* 7. Bloque de Etiquetas */}
+                {/* 8. Bloque de Etiquetas */}
                 {tags && tags.length > 0 && (
-                  <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-red-950/60 pt-5">
-                    <span className="text-xs font-black uppercase tracking-wider text-zinc-400">
+                  <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-zinc-800 pt-5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
                       Temas:
                     </span>
                     {tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="rounded-md border border-red-950/80 bg-[#1e0608] px-2.5 py-1 text-xs font-semibold text-red-300 hover:border-red-700 hover:text-white transition-colors cursor-pointer"
+                        className="rounded border border-zinc-800 bg-zinc-950 px-2.5 py-1 text-xs font-medium text-zinc-300 hover:border-zinc-700 hover:text-white transition-colors cursor-pointer"
                       >
                         #{tag}
                       </span>
@@ -291,20 +299,20 @@ export default async function ArticlePage({
             <aside className="space-y-8 lg:col-span-4">
               
               {/* Widget 1: Lo Último */}
-              <div className="rounded-2xl border border-red-950/70 bg-[#180506]/95 p-5 shadow-xl backdrop-blur-md">
-                <div className="flex items-center justify-between border-b border-red-950/70 pb-3">
-                  <h3 className="font-serif text-base font-black uppercase tracking-tight text-white">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
+                <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                  <h3 className="text-base font-bold uppercase tracking-tight text-white">
                     Lo Último <span className="text-red-500">|</span> {categoryName}
                   </h3>
                   <Link
                     href="/lo-ultimo"
-                    className="text-[10px] font-black uppercase tracking-widest text-red-400 hover:underline"
+                    className="text-[10px] font-bold uppercase tracking-wider text-red-500 hover:text-red-400"
                   >
                     Ver todo →
                   </Link>
                 </div>
 
-                <div className="mt-4 divide-y divide-red-950/50">
+                <div className="mt-4 divide-y divide-zinc-800">
                   {relatedArticles.length > 0 ? (
                     relatedArticles.slice(0, 5).map((rel) => {
                       const relCover =
@@ -329,7 +337,7 @@ export default async function ArticlePage({
                             </span>
                           </div>
                           {relCover?.url && (
-                            <div className="relative h-14 w-18 flex-shrink-0 overflow-hidden rounded-lg border border-red-950/60 bg-black/40">
+                            <div className="relative h-14 w-18 flex-shrink-0 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950">
                               <Image
                                 src={relCover.url}
                                 alt={rel.title}
@@ -357,7 +365,7 @@ export default async function ArticlePage({
                             HACE 2 HORAS
                           </span>
                         </div>
-                        <div className="relative h-14 w-18 flex-shrink-0 overflow-hidden rounded-lg border border-red-950/60 bg-black/40">
+                        <div className="relative h-14 w-18 flex-shrink-0 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950">
                           <Image
                             src={item.image}
                             alt={item.title}
@@ -373,14 +381,14 @@ export default async function ArticlePage({
               </div>
 
               {/* Widget 2: Te Recomendamos / Ranking 1 al 5 */}
-              <div className="rounded-2xl border border-red-950/70 bg-[#180506]/95 p-5 shadow-xl backdrop-blur-md">
-                <div className="border-b border-red-950/70 pb-3">
-                  <h3 className="font-serif text-base font-black uppercase tracking-tight text-white flex items-center gap-2">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
+                <div className="border-b border-zinc-800 pb-3">
+                  <h3 className="text-base font-bold uppercase tracking-tight text-white flex items-center gap-2">
                     <span className="text-red-500">★</span> Te Recomendamos
                   </h3>
                 </div>
 
-                <ol className="mt-4 divide-y divide-red-950/50">
+                <ol className="mt-4 divide-y divide-zinc-800">
                   {RECOMMENDED_STORIES.map((item) => (
                     <li key={item.rank}>
                       <Link
@@ -388,7 +396,7 @@ export default async function ArticlePage({
                         className="group flex items-start gap-3 py-3.5 first:pt-1 last:pb-0 transition-opacity hover:opacity-90"
                       >
                         {/* Número Circular */}
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-red-800/60 bg-red-950/80 text-xs font-black text-red-400 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-xs font-bold text-zinc-300 group-hover:bg-red-600 group-hover:text-white transition-colors">
                           {item.rank}
                         </span>
 
@@ -400,7 +408,7 @@ export default async function ArticlePage({
                         </div>
 
                         {/* Miniatura */}
-                        <div className="relative h-12 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-red-950/60 bg-black/40">
+                        <div className="relative h-12 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950">
                           <Image
                             src={item.image}
                             alt={item.title}

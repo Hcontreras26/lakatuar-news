@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import DenunciasBanner from "@/components/ui/DenunciasBanner";
+import { getLatestArticles } from "@/lib/payload";
 
 export const metadata: Metadata = {
   title: "Lo Último | Noticias de Actualidad y Minuto a Minuto - LA KATUAR NEWS",
@@ -44,17 +45,18 @@ const CENTER_STORIES: NewsArticle[] = [
   {
     id: "sin-mordaza-informe",
     category: "VENEZUELA",
-    categoryColor: "bg-blue-500",
+    categoryColor: "bg-red-600",
     title: "Un Mundo Sin Mordaza: Venezuela enfrenta un primer semestre marcado por protestas, inflación y persecución política",
     summary:
       "La ONG documentó un incremento sostenido de vulneraciones a los derechos fundamentales, precariedad en servicios públicos y criminalización de la disidencia durante la primera mitad del año.",
     sourceOrAuthor: "El Nacional",
     date: "Hace 2 horas",
+    url: "/noticias/sin-mordaza-informe",
   },
   {
     id: "ice-deportacion-gnb",
     category: "POLÍTICA",
-    categoryColor: "bg-blue-600",
+    categoryColor: "bg-red-600",
     title: "EE UU deportó a Venezuela a excomandante de la GNB señalado por abusos y torturas durante las protestas de 2013 y 2014",
     image:
       "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
@@ -62,6 +64,7 @@ const CENTER_STORIES: NewsArticle[] = [
       "El pasado 19 de agosto, el Servicio de Inmigración y Control de Aduanas (ICE) deportó a Venezuela a Rafael José Quero Silva, excomandante de la Guardia Nacional Bolivariana, tras una orden emitida por un juez de inmigración. Foto: Archivo.",
     sourceOrAuthor: "El Nacional",
     date: "Hace 3 horas",
+    url: "/noticias/ice-deportacion-gnb",
   },
 ];
 
@@ -69,7 +72,7 @@ const RIGHT_STORIES: NewsArticle[] = [
   {
     id: "economia-la-guaira",
     category: "ECONOMÍA",
-    categoryColor: "bg-blue-600",
+    categoryColor: "bg-red-600",
     title: "La economía de La Guaira se hunde tras la parálisis del sector comercial",
     image:
       "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
@@ -77,16 +80,18 @@ const RIGHT_STORIES: NewsArticle[] = [
       "Fernando Magis, pescador local desde hace 40 años, baja todos los días a su puesto, así no venda nada. Porque no ir, dice, le duele más | Foto Ezequiel Carías",
     sourceOrAuthor: "Karem González",
     date: "Hace 4 horas",
+    url: "/noticias/economia-la-guaira",
   },
   {
     id: "temblor-colombia",
     category: "COLOMBIA",
-    categoryColor: "bg-blue-600",
+    categoryColor: "bg-red-600",
     title: "Temblor de magnitud 5,1 sacudió a Colombia dos semanas después del terremoto de 7,4",
     summary:
       "El Servicio Geológico Colombiano reportó que el movimiento telúrico se sintió en Bogotá, Medellín y Santander, sin que se hayan registrado daños estructurales graves ni víctimas.",
     sourceOrAuthor: "El Nacional",
     date: "Hace 5 horas",
+    url: "/noticias/temblor-colombia",
   },
 ];
 
@@ -96,8 +101,6 @@ const BREAKING_TICKER = [
   "Reportan fallas masivas en el suministro eléctrico en 7 estados del país",
   "Comunidad internacional exige liberación inmediata de periodistas y presos políticos",
 ];
-
-import { getLatestArticles } from "@/lib/payload";
 
 export default async function LoUltimoPage(): Promise<React.JSX.Element> {
   const articlesRes = await getLatestArticles({ limit: 10 });
@@ -113,7 +116,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
         title: cmsArticles[0].title,
         summary: cmsArticles[0].summary,
         caption: cmsArticles[0].caption || undefined,
-        sourceOrAuthor: cmsArticles[0].sourceOrAuthor || "Redacción Lakatuar",
+        sourceOrAuthor: cmsArticles[0].sourceOrAuthor || "Redacción Lakatuar News",
         image:
           typeof cmsArticles[0].coverImage === "object" &&
           cmsArticles[0].coverImage?.url
@@ -133,7 +136,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               : "VENEZUELA",
           title: cmsArticles[1].title,
           summary: cmsArticles[1].summary,
-          sourceOrAuthor: cmsArticles[1].sourceOrAuthor || "Redacción Lakatuar",
+          sourceOrAuthor: cmsArticles[1].sourceOrAuthor || "Redacción Lakatuar News",
           url: `/noticias/${cmsArticles[1].slug}`,
         }
       : CENTER_STORIES[0],
@@ -146,7 +149,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               : "POLÍTICA",
           title: cmsArticles[2].title,
           caption: cmsArticles[2].caption || undefined,
-          sourceOrAuthor: cmsArticles[2].sourceOrAuthor || "Redacción Lakatuar",
+          sourceOrAuthor: cmsArticles[2].sourceOrAuthor || "Redacción Lakatuar News",
           image:
             typeof cmsArticles[2].coverImage === "object" &&
             cmsArticles[2].coverImage?.url
@@ -167,7 +170,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               : "ECONOMÍA",
           title: cmsArticles[3].title,
           caption: cmsArticles[3].caption || undefined,
-          sourceOrAuthor: cmsArticles[3].sourceOrAuthor || "Redacción Lakatuar",
+          sourceOrAuthor: cmsArticles[3].sourceOrAuthor || "Redacción Lakatuar News",
           image:
             typeof cmsArticles[3].coverImage === "object" &&
             cmsArticles[3].coverImage?.url
@@ -185,20 +188,21 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               : "REGIONAL",
           title: cmsArticles[4].title,
           summary: cmsArticles[4].summary,
-          sourceOrAuthor: cmsArticles[4].sourceOrAuthor || "Redacción Lakatuar",
+          sourceOrAuthor: cmsArticles[4].sourceOrAuthor || "Redacción Lakatuar News",
           url: `/noticias/${cmsArticles[4].slug}`,
         }
       : RIGHT_STORIES[1],
   ];
+
   return (
-    <div className="flex min-h-screen flex-col bg-[#120404] text-white antialiased">
+    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
       <Header />
 
       <main className="flex-1">
         {/* Barra superior de última hora (Ticker) */}
-        <div className="border-b border-red-950/80 bg-[#1a0406] px-4 py-2.5 text-xs shadow-inner">
+        <div className="border-b border-zinc-800 bg-zinc-900/90 px-4 py-2 text-xs">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <span className="flex-shrink-0 rounded bg-red-600 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-md animate-pulse">
+            <span className="flex-shrink-0 bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
               ÚLTIMA HORA
             </span>
             <div className="overflow-hidden whitespace-nowrap">
@@ -209,42 +213,61 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          {/* Breadcrumbs */}
-          <nav aria-label="Ruta de navegación" className="mb-5 flex items-center gap-2 text-xs text-zinc-400">
-            <Link href="/" className="transition-colors hover:text-red-400">
+        {/* Contenedor principal con padding idéntico al estilo de contacto */}
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+          
+          {/* Breadcrumbs editorial */}
+          <nav aria-label="Ruta de navegación" className="mb-6 flex items-center gap-2 text-xs text-zinc-400">
+            <Link href="/" className="transition-colors hover:text-white">
               Inicio
             </Link>
             <span className="text-zinc-600">/</span>
-            <span className="font-semibold text-red-500">Lo Último</span>
+            <span className="font-medium text-zinc-200">Lo Último</span>
           </nav>
 
-          {/* Encabezado Editorial estilo Prensa Digital Premium */}
-          <header className="mb-8 border-b border-red-950/70 pb-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="rounded bg-red-600/90 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
-                    EDICIÓN DIGITAL
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-red-400">
-                    ACTUALIZADO AL MINUTO
-                  </span>
+          {/* Encabezado Editorial Idéntico a Contacto */}
+          <header className="mb-6 border-b border-zinc-800 pb-5 sm:mb-8 sm:pb-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              
+              {/* Bloque Izquierdo: Categoría y Título Principal */}
+              <div className="max-w-2xl">
+                <div className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                  EDICIÓN DIGITAL
                 </div>
-                <h1 className="mt-2.5 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <h1 className="mt-2 text-2xl font-black uppercase tracking-tight text-white sm:text-3xl lg:text-4xl">
                   Lo Último
                 </h1>
+                <p className="mt-1 text-xs leading-relaxed text-zinc-400 sm:text-sm">
+                  Edición continua de noticias, reportajes exclusivos, política, economía y sucesos al minuto.
+                </p>
               </div>
 
-              <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-ping" />
-                <span>Información verificada · Sin censura</span>
+              {/* Bloque Derecho: Indicadores rápidos como en Contacto */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs">
+                  <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" aria-hidden="true" />
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Actualización</span>
+                    <span className="font-semibold text-zinc-200">Al Minuto</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-xs">
+                  <svg className="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Verificación</span>
+                    <span className="font-semibold text-zinc-200">Fuentes Directas</span>
+                  </div>
+                </div>
               </div>
+
             </div>
           </header>
 
-          {/* Superficie Editorial: Contenedor Dark con acentos carmesí */}
-          <div className="rounded-2xl border border-red-950/70 bg-[#180507]/90 p-5 text-white shadow-2xl backdrop-blur-md sm:p-7 lg:p-9">
+          {/* Tarjeta de Contenedor Principal: Estilo Contacto (bg-zinc-900 con border-t-2 border-t-red-600) */}
+          <div className="rounded-xl border border-zinc-700/80 bg-zinc-900 p-5 shadow-2xl shadow-black/60 sm:p-7 lg:p-8 border-t-2 border-t-red-600">
             
             {/* Grilla Principal de 3 Columnas */}
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8">
@@ -256,7 +279,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                   {mainArticle.image && (
                     <Link
                       href={mainArticle.url ?? "#"}
-                      className="block relative aspect-[16/11] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-lg"
+                      className="block relative aspect-[16/11] w-full overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-md"
                     >
                       <Image
                         src={mainArticle.image}
@@ -279,53 +302,54 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
 
                   {/* Categoría */}
                   <div className="mt-3.5">
-                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                    <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                       {mainArticle.category}
                     </span>
                   </div>
 
                   {/* Titular Principal */}
-                  <h2 className="mt-2.5 font-serif text-2xl font-black leading-tight tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-3xl">
+                  <h2 className="mt-2.5 text-xl font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-2xl">
                     <Link href={mainArticle.url ?? "#"}>
                       {mainArticle.title}
                     </Link>
                   </h2>
 
                   {/* Resumen Periodístico */}
-                  <p className="mt-3 text-xs leading-relaxed text-zinc-300 sm:text-sm">
+                  <p className="mt-2.5 text-xs leading-relaxed text-zinc-300 sm:text-sm">
                     {mainArticle.summary}
                   </p>
                 </div>
 
                 {/* Fuente / Autor */}
-                <div className="mt-5 border-t border-red-950/60 pt-3 text-xs font-semibold text-zinc-400 flex items-center justify-between">
-                  <span className="text-white font-bold">{mainArticle.sourceOrAuthor}</span>
+                <div className="mt-5 border-t border-zinc-800 pt-3 text-xs font-semibold text-zinc-400 flex items-center justify-between">
+                  <span className="text-zinc-200 font-bold">{mainArticle.sourceOrAuthor}</span>
                   <Link
                     href={mainArticle.url ?? "#"}
-                    className="text-[11px] font-bold text-red-400 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1 text-sm font-normal text-red-500 transition-colors hover:text-red-400"
                   >
-                    Leer nota completa →
+                    <span>Leer nota completa</span>
+                    <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </div>
               </article>
 
               {/* COLUMNA 2 (Centro): 2 Noticias estructuradas verticalmente (4 Cols) */}
-              <section className="lg:col-span-4 lg:border-l lg:border-r lg:border-red-950/60 lg:px-6 flex flex-col justify-between space-y-6 lg:space-y-0">
+              <section className="lg:col-span-4 lg:border-l lg:border-r lg:border-zinc-800 lg:px-6 flex flex-col justify-between space-y-6 lg:space-y-0">
                 
                 {/* Noticia 1 Superior */}
-                <article className="pb-6 border-b border-red-950/60 group">
-                  <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                <article className="pb-6 border-b border-zinc-800 group">
+                  <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                     {centerStories[0].category}
                   </span>
 
-                  <h3 className="mt-2 font-serif text-lg font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-xl">
+                  <h3 className="mt-2 text-base font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
                     <Link href={centerStories[0].url ?? "#"}>
                       {centerStories[0].title}
                     </Link>
                   </h3>
 
                   {centerStories[0].summary && (
-                    <p className="mt-2 text-xs leading-relaxed text-zinc-300 line-clamp-3">
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-400 line-clamp-3">
                       {centerStories[0].summary}
                     </p>
                   )}
@@ -338,7 +362,10 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                 {/* Noticia 2 Inferior con Fotografía */}
                 <article className="pt-2 group">
                   {centerStories[1].image && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-md">
+                    <Link
+                      href={centerStories[1].url ?? "#"}
+                      className="block relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-sm"
+                    >
                       <Image
                         src={centerStories[1].image}
                         alt={centerStories[1].title}
@@ -346,7 +373,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                         sizes="(max-width: 1024px) 100vw, 360px"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                    </div>
+                    </Link>
                   )}
 
                   {centerStories[1].caption && (
@@ -356,12 +383,12 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                   )}
 
                   <div className="mt-2.5">
-                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                    <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                       {centerStories[1].category}
                     </span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
+                  <h3 className="mt-2 text-sm font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-base">
                     <Link href={centerStories[1].url ?? "#"}>
                       {centerStories[1].title}
                     </Link>
@@ -378,9 +405,12 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               <section className="lg:col-span-3 flex flex-col justify-between space-y-6 lg:space-y-0">
                 
                 {/* Noticia Superior con Foto */}
-                <article className="pb-6 border-b border-red-950/60 group">
+                <article className="pb-6 border-b border-zinc-800 group">
                   {rightStories[0].image && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-md">
+                    <Link
+                      href={rightStories[0].url ?? "#"}
+                      className="block relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-sm"
+                    >
                       <Image
                         src={rightStories[0].image}
                         alt={rightStories[0].title}
@@ -388,7 +418,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                         sizes="(max-width: 1024px) 100vw, 300px"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                    </div>
+                    </Link>
                   )}
 
                   {rightStories[0].caption && (
@@ -398,12 +428,12 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                   )}
 
                   <div className="mt-2.5">
-                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                    <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                       {rightStories[0].category}
                     </span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
+                  <h3 className="mt-2 text-sm font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-base">
                     <Link href={rightStories[0].url ?? "#"}>
                       {rightStories[0].title}
                     </Link>
@@ -416,18 +446,18 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
 
                 {/* Noticia Inferior Regional */}
                 <article className="pt-2 group">
-                  <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
+                  <span className="inline-block bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                     {rightStories[1].category}
                   </span>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
+                  <h3 className="mt-2 text-sm font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-base">
                     <Link href={rightStories[1].url ?? "#"}>
                       {rightStories[1].title}
                     </Link>
                   </h3>
 
                   {rightStories[1].summary && (
-                    <p className="mt-2 text-xs leading-relaxed text-zinc-300 line-clamp-3">
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-400 line-clamp-3">
                       {rightStories[1].summary}
                     </p>
                   )}
