@@ -56,7 +56,7 @@ const CENTER_STORIES: NewsArticle[] = [
     categoryColor: "bg-blue-600",
     title: "EE UU deportó a Venezuela a excomandante de la GNB señalado por abusos y torturas durante las protestas de 2013 y 2014",
     image:
-      "https://images.unsplash.com/photo-1508873696983-2df5703bc248?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
     caption:
       "El pasado 19 de agosto, el Servicio de Inmigración y Control de Aduanas (ICE) deportó a Venezuela a Rafael José Quero Silva, excomandante de la Guardia Nacional Bolivariana, tras una orden emitida por un juez de inmigración. Foto: Archivo.",
     sourceOrAuthor: "El Nacional",
@@ -190,18 +190,18 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
       : RIGHT_STORIES[1],
   ];
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100 antialiased">
+    <div className="flex min-h-screen flex-col bg-[#120404] text-white antialiased">
       <Header />
 
       <main className="flex-1">
         {/* Barra superior de última hora (Ticker) */}
-        <div className="border-b border-red-950/60 bg-[#190305] px-4 py-2 text-xs">
+        <div className="border-b border-red-950/80 bg-[#1a0406] px-4 py-2.5 text-xs shadow-inner">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <span className="flex-shrink-0 rounded bg-red-600 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+            <span className="flex-shrink-0 rounded bg-red-600 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-md animate-pulse">
               ÚLTIMA HORA
             </span>
             <div className="overflow-hidden whitespace-nowrap">
-              <div className="inline-block animate-marquee text-[11px] text-zinc-300">
+              <div className="inline-block animate-marquee text-[11px] font-medium text-zinc-300">
                 {BREAKING_TICKER.join("  •  ")}
               </div>
             </div>
@@ -210,152 +210,155 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
 
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           {/* Breadcrumbs */}
-          <nav aria-label="Ruta de navegación" className="mb-4 flex items-center gap-2 text-xs text-zinc-400">
-            <Link href="/" className="transition-colors hover:text-white">
+          <nav aria-label="Ruta de navegación" className="mb-5 flex items-center gap-2 text-xs text-zinc-400">
+            <Link href="/" className="transition-colors hover:text-red-400">
               Inicio
             </Link>
             <span className="text-zinc-600">/</span>
             <span className="font-semibold text-red-500">Lo Último</span>
           </nav>
 
-          {/* Encabezado Editorial estilo Prensa */}
-          <header className="mb-8 border-b-2 border-zinc-800 pb-4">
+          {/* Encabezado Editorial estilo Prensa Digital Premium */}
+          <header className="mb-8 border-b border-red-950/70 pb-5">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white">
+                  <span className="rounded bg-red-600/90 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
                     EDICIÓN DIGITAL
                   </span>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                  <span className="text-xs font-bold uppercase tracking-wider text-red-400">
                     ACTUALIZADO AL MINUTO
                   </span>
                 </div>
-                <h1 className="mt-2 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <h1 className="mt-2.5 text-3xl font-black uppercase tracking-tight text-white sm:text-4xl lg:text-5xl">
                   Lo Último
                 </h1>
               </div>
 
-              <div className="text-xs font-medium text-zinc-400">
+              <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+                <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-ping" />
                 <span>Información verificada · Sin censura</span>
               </div>
             </div>
           </header>
 
-          {/* Superficie de Prensa: Contenedor con estética de periódico moderno */}
-          <div className="rounded-xl border border-zinc-200 bg-white p-5 text-zinc-900 shadow-2xl sm:p-7 lg:p-9">
+          {/* Superficie Editorial: Contenedor Dark con acentos carmesí */}
+          <div className="rounded-2xl border border-red-950/70 bg-[#180507]/90 p-5 text-white shadow-2xl backdrop-blur-md sm:p-7 lg:p-9">
             
-            {/* Grilla Principal de 3 Columnas según maqueta de prensa (Imagen 1) */}
+            {/* Grilla Principal de 3 Columnas */}
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8">
               
               {/* COLUMNA 1 (Izquierda): Noticia Central Destacada (5 Cols) */}
-              <article className="lg:col-span-5 flex flex-col justify-between">
+              <article className="lg:col-span-5 flex flex-col justify-between group">
                 <div>
                   {/* Fotografía Principal */}
                   {mainArticle.image && (
-                    <div className="relative aspect-[16/11] w-full overflow-hidden bg-zinc-100">
+                    <div className="relative aspect-[16/11] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-lg">
                       <Image
                         src={mainArticle.image}
                         alt={mainArticle.title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 450px"
-                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                         priority
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                     </div>
                   )}
 
                   {/* Pie de foto */}
                   {mainArticle.caption && (
-                    <p className="mt-1.5 text-right text-[10px] font-normal italic text-zinc-600">
+                    <p className="mt-2 text-right text-[10px] font-normal italic text-zinc-400">
                       {mainArticle.caption}
                     </p>
                   )}
 
                   {/* Categoría */}
-                  <div className="mt-3">
-                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                  <div className="mt-3.5">
+                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
                       {mainArticle.category}
                     </span>
                   </div>
 
                   {/* Titular Principal */}
-                  <h2 className="mt-2.5 font-serif text-2xl font-black leading-tight tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-3xl">
+                  <h2 className="mt-2.5 font-serif text-2xl font-black leading-tight tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-3xl">
                     <Link href={mainArticle.url ?? "#"}>
                       {mainArticle.title}
                     </Link>
                   </h2>
 
                   {/* Resumen Periodístico */}
-                  <p className="mt-3 text-xs leading-relaxed text-zinc-700 sm:text-sm">
+                  <p className="mt-3 text-xs leading-relaxed text-zinc-300 sm:text-sm">
                     {mainArticle.summary}
                   </p>
                 </div>
 
                 {/* Fuente / Autor */}
-                <div className="mt-4 border-t border-zinc-200 pt-2.5 text-xs font-semibold text-zinc-900">
-                  {mainArticle.sourceOrAuthor}
+                <div className="mt-5 border-t border-red-950/60 pt-3 text-xs font-semibold text-zinc-400 flex items-center justify-between">
+                  <span className="text-white font-bold">{mainArticle.sourceOrAuthor}</span>
+                  <span className="text-[11px] text-red-400">Leer nota completa →</span>
                 </div>
               </article>
 
               {/* COLUMNA 2 (Centro): 2 Noticias estructuradas verticalmente (4 Cols) */}
-              <section className="lg:col-span-4 lg:border-l lg:border-r lg:border-zinc-200 lg:px-6 flex flex-col justify-between space-y-6 lg:space-y-0">
+              <section className="lg:col-span-4 lg:border-l lg:border-r lg:border-red-950/60 lg:px-6 flex flex-col justify-between space-y-6 lg:space-y-0">
                 
                 {/* Noticia 1 Superior */}
-                <article className="pb-6 border-b border-zinc-200">
-                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                <article className="pb-6 border-b border-red-950/60 group">
+                  <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
                     {centerStories[0].category}
                   </span>
 
-                  <h3 className="mt-2 font-serif text-lg font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-xl">
+                  <h3 className="mt-2 font-serif text-lg font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-xl">
                     <Link href={centerStories[0].url ?? "#"}>
                       {centerStories[0].title}
                     </Link>
                   </h3>
 
                   {centerStories[0].summary && (
-                    <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-300 line-clamp-3">
                       {centerStories[0].summary}
                     </p>
                   )}
 
-                  <p className="mt-3 text-xs font-semibold text-zinc-900">
+                  <p className="mt-3 text-xs font-semibold text-zinc-400">
                     {centerStories[0].sourceOrAuthor}
                   </p>
                 </article>
 
                 {/* Noticia 2 Inferior con Fotografía */}
-                <article className="pt-2">
+                <article className="pt-2 group">
                   {centerStories[1].image && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-md">
                       <Image
                         src={centerStories[1].image}
                         alt={centerStories[1].title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 360px"
-                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   )}
 
                   {centerStories[1].caption && (
-                    <p className="mt-1.5 text-[9.5px] leading-tight text-zinc-600">
+                    <p className="mt-1.5 text-[9.5px] leading-tight text-zinc-400">
                       {centerStories[1].caption}
                     </p>
                   )}
 
                   <div className="mt-2.5">
-                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
                       {centerStories[1].category}
                     </span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
                     <Link href={centerStories[1].url ?? "#"}>
                       {centerStories[1].title}
                     </Link>
                   </h3>
 
-                  <p className="mt-2.5 text-xs font-semibold text-zinc-900">
+                  <p className="mt-2.5 text-xs font-semibold text-zinc-400">
                     {centerStories[1].sourceOrAuthor}
                   </p>
                 </article>
@@ -365,62 +368,62 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
               {/* COLUMNA 3 (Derecha): Economía y Noticias Regionales (3 Cols) */}
               <section className="lg:col-span-3 flex flex-col justify-between space-y-6 lg:space-y-0">
                 
-                {/* Noticia Superior con Pescador */}
-                <article className="pb-6 border-b border-zinc-200">
+                {/* Noticia Superior con Foto */}
+                <article className="pb-6 border-b border-red-950/60 group">
                   {rightStories[0].image && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-md">
                       <Image
                         src={rightStories[0].image}
                         alt={rightStories[0].title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 300px"
-                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   )}
 
                   {rightStories[0].caption && (
-                    <p className="mt-1.5 text-right text-[9.5px] leading-tight text-zinc-600">
+                    <p className="mt-1.5 text-right text-[9.5px] leading-tight text-zinc-400">
                       {rightStories[0].caption}
                     </p>
                   )}
 
                   <div className="mt-2.5">
-                    <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                    <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
                       {rightStories[0].category}
                     </span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
                     <Link href={rightStories[0].url ?? "#"}>
                       {rightStories[0].title}
                     </Link>
                   </h3>
 
-                  <p className="mt-2 text-xs font-semibold text-zinc-900">
+                  <p className="mt-2 text-xs font-semibold text-zinc-400">
                     {rightStories[0].sourceOrAuthor}
                   </p>
                 </article>
 
                 {/* Noticia Inferior Regional */}
-                <article className="pt-2">
-                  <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-blue-800">
+                <article className="pt-2 group">
+                  <span className="inline-block rounded-md bg-red-950/80 border border-red-800/60 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-red-400">
                     {rightStories[1].category}
                   </span>
 
-                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-zinc-950 hover:text-blue-900 transition-colors sm:text-lg">
+                  <h3 className="mt-2 font-serif text-base font-black leading-snug tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-lg">
                     <Link href={rightStories[1].url ?? "#"}>
                       {rightStories[1].title}
                     </Link>
                   </h3>
 
                   {rightStories[1].summary && (
-                    <p className="mt-2 text-xs leading-relaxed text-zinc-600 line-clamp-3">
+                    <p className="mt-2 text-xs leading-relaxed text-zinc-300 line-clamp-3">
                       {rightStories[1].summary}
                     </p>
                   )}
 
-                  <p className="mt-2.5 text-xs font-semibold text-zinc-900">
+                  <p className="mt-2.5 text-xs font-semibold text-zinc-400">
                     {rightStories[1].sourceOrAuthor}
                   </p>
                 </article>
