@@ -15,7 +15,7 @@ export interface FooterProps {
 
 const defaultNavLinks: FooterLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Lo último", href: "/#lo-ultimo" },
+  { label: "Lo último", href: "/lo-ultimo" },
   { label: "Noticias", href: "/#noticias" },
   { label: "En vivo", href: "/#en-vivo" },
   { label: "Programas", href: "/#programas" },
