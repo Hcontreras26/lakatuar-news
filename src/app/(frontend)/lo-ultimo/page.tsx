@@ -26,17 +26,18 @@ interface NewsArticle {
 }
 
 const MAIN_ARTICLE: NewsArticle = {
-  id: "sip-informe-persecucion",
-  category: "POLÍTICA",
-  categoryColor: "bg-blue-600",
-  title: "Miguel Henrique Otero entregó a Dinorah Figuera informe de la SIP sobre persecución a medios en Venezuela",
+  id: "donald-trump-acuerdo-petrolero-venezuela",
+  category: "ESTADOS UNIDOS",
+  categoryColor: "bg-red-600",
+  title: 'Donald Trump anunció "el mayor acuerdo petrolero de la historia" con Venezuela',
   summary:
-    "El presidente editor de El Nacional consignó en Madrid ante la jefa negociadora opositora un expediente que documenta el cierre de 297 emisoras, la desaparición de más de 100 periódicos y el bloqueo de 62 portales digitales durante casi tres décadas.",
+    '"Estados Unidos se aseguró un control mayoritario de más de 65.000 millones de barriles de las reservas venezolanas", afirmó el mandatario republicano.',
   image:
     "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80",
-  caption: "Miguel Henrique Otero y Dinorah Figuera",
-  sourceOrAuthor: "El Nacional",
+  caption: "El presidente de Estados Unidos, Donald Trump. (AP Foto/Mark Schiefelbein)",
+  sourceOrAuthor: "Redacción Lakatuar News",
   date: "Hace 1 hora",
+  url: "/noticias/donald-trump-acuerdo-petrolero-venezuela",
 };
 
 const CENTER_STORIES: NewsArticle[] = [
@@ -253,7 +254,10 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                 <div>
                   {/* Fotografía Principal */}
                   {mainArticle.image && (
-                    <div className="relative aspect-[16/11] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-lg">
+                    <Link
+                      href={mainArticle.url ?? "#"}
+                      className="block relative aspect-[16/11] w-full overflow-hidden rounded-xl border border-red-950/60 bg-black/40 shadow-lg"
+                    >
                       <Image
                         src={mainArticle.image}
                         alt={mainArticle.title}
@@ -263,7 +267,7 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                         priority
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                    </div>
+                    </Link>
                   )}
 
                   {/* Pie de foto */}
@@ -296,7 +300,12 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
                 {/* Fuente / Autor */}
                 <div className="mt-5 border-t border-red-950/60 pt-3 text-xs font-semibold text-zinc-400 flex items-center justify-between">
                   <span className="text-white font-bold">{mainArticle.sourceOrAuthor}</span>
-                  <span className="text-[11px] text-red-400">Leer nota completa →</span>
+                  <Link
+                    href={mainArticle.url ?? "#"}
+                    className="text-[11px] font-bold text-red-400 hover:text-white transition-colors"
+                  >
+                    Leer nota completa →
+                  </Link>
                 </div>
               </article>
 
