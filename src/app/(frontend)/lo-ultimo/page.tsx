@@ -472,6 +472,100 @@ export default async function LoUltimoPage(): Promise<React.JSX.Element> {
             </div>
           </div>
 
+          {/* Sección de Más Noticias Recientes del CMS (Si hay más de 5 artículos publicados) */}
+          {cmsArticles.length > 5 && (
+            <section className="mt-10 border-t border-zinc-800 pt-8">
+              <div className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse" />
+                  <h2 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+                    Más Noticias Recientes
+                  </h2>
+                </div>
+                <span className="text-xs text-zinc-500">
+                  {cmsArticles.length} notas disponibles
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {cmsArticles.slice(5).map((article) => {
+                  const cover =
+                    typeof article.coverImage === "object" ? article.coverImage : null;
+                  const catName =
+                    typeof article.category === "object"
+                      ? article.category.name
+                      : "ACTUALIDAD";
+                  const formattedPub = article.publishedAt
+                    ? new Date(article.publishedAt).toLocaleDateString("es-ES", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "";
+
+                  return (
+                    <article
+                      key={article.id}
+                      className="group flex flex-col justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-4 shadow-lg transition hover:border-zinc-700"
+                    >
+                      <div>
+                        {cover?.url && (
+                          <Link
+                            href={`/noticias/${article.slug}`}
+                            className="block relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-sm"
+                          >
+                            <Image
+                              src={cover.url}
+                              alt={article.title}
+                              fill
+                              sizes="(max-width: 1024px) 100vw, 360px"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </Link>
+                        )}
+
+                        <div className="mt-3 flex items-center justify-between gap-2">
+                          <span className="inline-block bg-red-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                            {catName}
+                          </span>
+                          {formattedPub && (
+                            <span className="text-[10px] font-medium text-zinc-500">
+                              {formattedPub}
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className="mt-2 text-sm font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-red-400">
+                          <Link href={`/noticias/${article.slug}`}>
+                            {article.title}
+                          </Link>
+                        </h3>
+
+                        {article.summary && (
+                          <p className="mt-2 text-xs leading-relaxed text-zinc-400 line-clamp-2">
+                            {article.summary}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="mt-4 flex items-center justify-between border-t border-zinc-800 pt-2 text-[11px]">
+                        <span className="font-semibold text-zinc-400">
+                          {article.sourceOrAuthor || "Redacción Lakatuar News"}
+                        </span>
+                        <Link
+                          href={`/noticias/${article.slug}`}
+                          className="font-bold text-red-500 transition-colors hover:text-red-400"
+                        >
+                          Leer nota →
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {/* Banner de Contacto y Denuncias */}
           <div className="mt-10">
             <DenunciasBanner />
