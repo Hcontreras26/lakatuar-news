@@ -24,9 +24,9 @@ export default function TwitterFeedSection({
 
   return (
     <section
-      id="twitter-feed"
-      aria-label="Feed de X (Twitter)"
-      className={`relative bg-black py-10 text-white sm:py-14 border-t border-b border-zinc-900 ${className}`.trim()}
+      id="lo-ultimo"
+      aria-label="Feed de X (Twitter) - Lo último"
+      className={`relative scroll-mt-16 bg-black py-10 text-white sm:py-14 border-t border-b border-zinc-900 ${className}`.trim()}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Cabecera de la Sección con Branding de X */}

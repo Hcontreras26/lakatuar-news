@@ -15,13 +15,10 @@ export interface FooterProps {
 
 const defaultNavLinks: FooterLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Lo último", href: "/lo-ultimo" },
-  { label: "Análisis", href: "/#analisis" },
-  { label: "Opinión", href: "/#opinion" },
-  { label: "Venezuela", href: "/#venezuela" },
-  { label: "Internacional", href: "/#internacional" },
-  { label: "Política", href: "/#politica" },
-  { label: "Videos", href: "/#vod" },
+  { label: "Lo último", href: "/#lo-ultimo" },
+  { label: "Noticias", href: "/#noticias" },
+  { label: "En vivo", href: "/#en-vivo" },
+  { label: "Programas", href: "/#programas" },
   { label: "Contacto", href: "/contacto" },
 ];
 

@@ -66,8 +66,9 @@ export default function InstagramSection({
 
   return (
     <section
-      aria-label="Publicaciones de Instagram"
-      className={`relative bg-white py-10 text-zinc-900 sm:py-14 ${className}`.trim()}
+      id="noticias"
+      aria-label="Publicaciones de Instagram - Noticias"
+      className={`relative scroll-mt-16 bg-white py-10 text-zinc-900 sm:py-14 ${className}`.trim()}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Barra Superior */}

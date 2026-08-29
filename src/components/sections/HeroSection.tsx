@@ -56,7 +56,7 @@ export default function HeroSection({
     <section
       id="en-vivo"
       aria-label="Hero Principal y Transmisión en Vivo"
-      className={`relative overflow-hidden bg-gradient-to-b from-[#85020b] via-[#630108] to-[#340104] text-white ${className}`.trim()}
+      className={`relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-[#85020b] via-[#630108] to-[#340104] text-white ${className}`.trim()}
     >
       <div
         aria-hidden="true"

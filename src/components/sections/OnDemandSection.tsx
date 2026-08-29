@@ -65,9 +65,9 @@ export default function OnDemandSection({
 
   return (
     <section
-      id="vod"
-      aria-label="Videos bajo demanda"
-      className={`relative overflow-hidden bg-gradient-to-b from-[#340104] via-[#1e0204] to-[#120404] py-10 text-white sm:py-14 ${className}`.trim()}
+      id="programas"
+      aria-label="Videos y Programas bajo demanda"
+      className={`relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-[#340104] via-[#1e0204] to-[#120404] py-10 text-white sm:py-14 ${className}`.trim()}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
