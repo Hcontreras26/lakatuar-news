@@ -40,7 +40,6 @@ export default function HeroSection({
   const presenterImage =
     programInfo.presenterImageUrl ?? DEFAULT_PRESENTER_IMAGE;
 
-  // Si se pasa latestVideo, usamos su miniatura y título dinámico de YouTube
   const videoId = latestVideo ? String(latestVideo.id) : programInfo.videoId;
   const videoTitle = latestVideo?.title ?? programInfo.title;
   const thumbnailImage =
@@ -78,12 +77,12 @@ export default function HeroSection({
             </div>
 
             <div className="mt-8 sm:mt-10 lg:mt-16">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="mb-2 flex items-center gap-2">
                 {programInfo.isLive ? (
                   <span className="flex items-center gap-1.5 rounded bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-md">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
                     </span>
                     EN VIVO AHORA
                   </span>
@@ -92,10 +91,11 @@ export default function HeroSection({
                     {programInfo.badge || "EN LA MIRA"}
                   </span>
                 )}
-                <span className="text-xs font-semibold text-red-200/90 uppercase tracking-wider">
+                <span className="text-xs font-semibold uppercase tracking-wider text-red-200/90">
                   con {programInfo.presenterName || "La Katuar"}
                 </span>
               </div>
+
               <h2 className="text-xl font-bold uppercase tracking-tight text-white sm:text-2xl lg:text-3xl">
                 {videoTitle}
               </h2>
@@ -108,7 +108,7 @@ export default function HeroSection({
                   <button
                     type="button"
                     onClick={() => setIsPlaying(true)}
-                    className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-xl transition-all hover:bg-red-700 hover:scale-105"
+                    className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-xl transition-all hover:scale-105 hover:bg-red-700"
                   >
                     <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
@@ -121,7 +121,7 @@ export default function HeroSection({
                   href={videoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-red-500/50 bg-black/40 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm transition hover:bg-red-950/60 hover:border-red-400"
+                  className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-black/40 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm transition hover:border-red-400 hover:bg-red-950/60"
                 >
                   Abrir en YouTube →
                 </a>
@@ -132,10 +132,14 @@ export default function HeroSection({
           {/* Bloque Multimedia */}
           <div className="relative flex flex-col justify-start lg:col-span-7">
 
-            {/* Imagen de la presentadora */}
+            {/* Imagen de la presentadora:
+                Ajustado el despeje en mobile (-top-20 a -top-24) y escala (h-[380px] en mobile, subiendo progresivamente) */}
             <div
               aria-hidden="true"
-              className="mask-gradient-b pointer-events-none absolute -top-16 -right-2 z-0 flex justify-end sm:-top-24 sm:-right-6 md:-right-10 lg:-top-32 lg:-right-20 xl:-top-36 xl:-right-28 2xl:-right-36"
+              className="pointer-events-none absolute -top-20 right-0 z-0 flex justify-end 
+    [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] 
+    [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] 
+    sm:-top-24 sm:-right-4 md:-right-8 lg:-top-32 lg:-right-20 xl:-top-36 xl:-right-28"
             >
               <Image
                 src={presenterImage}
@@ -143,12 +147,13 @@ export default function HeroSection({
                 width={800}
                 height={1000}
                 priority
-                className="h-[440px] w-auto max-w-none select-none object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.7)] sm:h-[520px] lg:h-[580px] xl:h-[640px]"
+                className="h-[380px] w-auto max-w-none select-none object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.7)] sm:h-[480px] lg:h-[580px] xl:h-[640px]"
               />
             </div>
 
-            {/* Miniatura / Reproductor de YouTube */}
-            <div className="relative z-10 mt-10 w-full max-w-md overflow-hidden rounded-xl border border-red-900/40 bg-black/90 shadow-2xl lg:mt-[175px] lg:max-w-[85%]">
+            {/* Miniatura / Reproductor de YouTube:
+                Ajustado mt-28 en mobile y sm:mt-36 para garantizar que el marco superior del reproductor no tape el rostro */}
+            <div className="relative z-10 mt-28 w-full max-w-md overflow-hidden rounded-xl border border-red-900/40 bg-black/90 shadow-2xl sm:mt-36 lg:mt-[175px] lg:max-w-[85%]">
               <div className="relative aspect-video w-full overflow-hidden">
                 {isPlaying && videoId ? (
                   <iframe
@@ -166,7 +171,7 @@ export default function HeroSection({
                       fill
                       priority
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 448px, 600px"
-                      className="object-cover cursor-pointer transition-transform duration-500 hover:scale-105"
+                      className="cursor-pointer object-cover transition-transform duration-500 hover:scale-105"
                       onClick={() => (videoId ? setIsPlaying(true) : window.open(videoUrl, "_blank"))}
                     />
 
@@ -177,7 +182,7 @@ export default function HeroSection({
 
                     <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-3.5 sm:p-5">
                       <div
-                        className="flex items-center gap-3 cursor-pointer group"
+                        className="group flex cursor-pointer items-center gap-3"
                         onClick={() => (videoId ? setIsPlaying(true) : window.open(videoUrl, "_blank"))}
                       >
                         <div
@@ -209,7 +214,7 @@ export default function HeroSection({
                         >
                           <span
                             aria-hidden="true"
-                            className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse sm:h-2 sm:w-2"
+                            className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 sm:h-2 sm:w-2"
                           />
                           LIVE
                         </span>
@@ -225,4 +230,4 @@ export default function HeroSection({
       </div>
     </section>
   );
-}
+}

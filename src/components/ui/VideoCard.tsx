@@ -41,7 +41,7 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
             <span className="text-[10px] font-black uppercase tracking-wider text-white">
               MIRA
             </span>
-            <span className="text-[8px] font-medium text-zinc-400">
+            <span className="text-[12px] font-medium text-zinc-400">
               ... con La Katuar
             </span>
           </div>
@@ -50,7 +50,7 @@ export default function VideoCard({ item, className = "" }: VideoCardProps): Rea
 
       {/* Título del Video */}
       <div className="relative -mt-px bg-[#150406] p-3.5">
-        <h3 className="line-clamp-2 text-sm font-black uppercase leading-snug tracking-tight text-zinc-100 transition-colors group-hover:text-red-400">
+        <h3 className="line-clamp-2 text-sm font-black leading-snug tracking-tight text-zinc-100 transition-colors group-hover:text-red-400">
           {item.title}
         </h3>
       </div>
