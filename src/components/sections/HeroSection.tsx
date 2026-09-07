@@ -55,14 +55,14 @@ export default function HeroSection({
     <section
       id="en-vivo"
       aria-label="Hero Principal y Transmisión en Vivo"
-      className={`relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-[#85020b] via-[#630108] to-[#340104] text-white ${className}`.trim()}
+      className={`relative min-h-[calc(100svh-65px)] flex flex-col justify-center scroll-mt-16 overflow-hidden bg-gradient-to-b from-[#85020b] via-[#630108] to-[#340104] text-white ${className}`.trim()}
     >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.08),transparent_55%)]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 pt-8 pb-10 sm:px-6 sm:pt-10 sm:pb-14 lg:px-8 lg:pt-16 lg:pb-16">
+      <div className="relative mx-auto w-full max-w-7xl px-4 pt-10 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-20 lg:pb-20">
         <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-6">
 
           {/* Bloque Informativo */}
