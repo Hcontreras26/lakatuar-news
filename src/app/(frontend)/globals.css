@@ -8,9 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-geist-mono);
-  --font-brand: var(--font-hiragino), var(--font-geist-sans), sans-serif;
+  --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-headline: var(--font-headline), "Arial Black", "Oswald", sans-serif;
+  --font-serif: var(--font-headline), "Arial Black", sans-serif;
+  --font-mono: var(--font-mono), monospace;
+  --font-brand: var(--font-hiragino), var(--font-headline), var(--font-sans), sans-serif;
 }
 
 html {
@@ -20,12 +22,22 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .font-brand {
-  font-family: var(--font-hiragino), var(--font-geist-sans), sans-serif;
+  font-family: var(--font-hiragino), var(--font-headline), var(--font-sans), sans-serif;
 }
+
+.font-headline {
+  font-family: var(--font-headline), "Arial Black", "Oswald", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-serif {
+  font-family: var(--font-headline), "Arial Black", sans-serif;
+}
+
 
 * {
   box-sizing: border-box;

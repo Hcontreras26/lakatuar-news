@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Oswald, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const hiraginoSans = localFont({
@@ -16,18 +16,27 @@ const hiraginoSans = localFont({
   preload: true,
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Tipografía de Titulares de Alto Impacto (Estilo Breaking News / Televisivo Internacional)
+const oswald = Oswald({
+  variable: "--font-headline",
   subsets: ["latin"],
-  display: "block",
-  preload: true,
+  display: "swap",
+  weight: ["500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Tipografía de Lectura y UI Profesional
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
-  display: "block",
-  preload: true,
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+// Tipografía Mono para Badges, Horarios y Fechas
+const geistMono = Geist_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -55,9 +64,10 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
   return (
     <html
       lang="es"
-      className={`${hiraginoSans.variable} ${geistSans.variable} ${geistMono.variable} ${geistSans.className} h-full antialiased`}
+      className={`${oswald.variable} ${inter.variable} ${geistMono.variable} ${hiraginoSans.variable} ${inter.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#120404] text-white">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#120404] text-white font-sans">{children}</body>
     </html>
   );
 }
+
