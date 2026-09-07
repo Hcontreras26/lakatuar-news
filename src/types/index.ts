@@ -34,6 +34,7 @@ export interface VideoItem {
   url?: string;
   category?: string;
   tag?: string;
+  publishedAt?: string;
 }
 
 export interface NewsItem {

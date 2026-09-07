@@ -99,7 +99,7 @@ export default function InstagramSection({
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
               </div>
-              <p className="text-xs text-zinc-500">Publicaciones de Instagram</p>
+              <p className="text-sm text-zinc-600">Publicaciones de Instagram</p>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export default function InstagramSection({
             rel="noopener noreferrer"
             className="rounded-md bg-red-600 px-5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-red-700"
           >
-            Seguinos
+            Síguenos
           </a>
         </div>
 

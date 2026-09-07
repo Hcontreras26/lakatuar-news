@@ -10,37 +10,97 @@ function decodeXmlEntities(text: string): string {
     .replace(/&apos;/g, "'");
 }
 
-function formatRelativeDate(isoDateString?: string): string {
-  if (!isoDateString) return "NUEVO";
-  try {
-    const date = new Date(isoDateString);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffHours / 24);
+function formatSecondsToDuration(totalSeconds: number): string {
+  if (!totalSeconds || isNaN(totalSeconds) || totalSeconds <= 0) return "";
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = Math.floor(totalSeconds % 60);
 
-    if (diffDays > 30) {
-      const months = Math.floor(diffDays / 30);
-      return `HACE ${months} ${months === 1 ? "MES" : "MESES"}`;
+  const paddedSeconds = seconds.toString().padStart(2, "0");
+  if (hours > 0) {
+    const paddedMinutes = minutes.toString().padStart(2, "0");
+    return `${hours}:${paddedMinutes}:${paddedSeconds}`;
+  }
+  return `${minutes}:${paddedSeconds}`;
+}
+
+function parseIsoDuration(isoDuration: string): string {
+  const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/i);
+  if (!match) return "";
+  const hours = parseInt(match[1] || "0", 10);
+  const minutes = parseInt(match[2] || "0", 10);
+  const seconds = parseInt(match[3] || "0", 10);
+
+  const paddedSeconds = seconds.toString().padStart(2, "0");
+  if (hours > 0) {
+    const paddedMinutes = minutes.toString().padStart(2, "0");
+    return `${hours}:${paddedMinutes}:${paddedSeconds}`;
+  }
+  return `${minutes}:${paddedSeconds}`;
+}
+
+async function fetchVideoDuration(videoId: string): Promise<string> {
+  try {
+    const res = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+      },
+      next: { revalidate: 86400 },
+    });
+
+    if (!res.ok) return "";
+
+    const html = await res.text();
+    const lengthMatch = html.match(/"lengthSeconds":"(\d+)"/);
+    if (lengthMatch && lengthMatch[1]) {
+      const sec = parseInt(lengthMatch[1], 10);
+      if (sec > 0) return formatSecondsToDuration(sec);
     }
-    if (diffDays > 0) {
-      return `HACE ${diffDays} ${diffDays === 1 ? "DÍA" : "DÍAS"}`;
+
+    const isoMatch = html.match(/itemprop="duration" content="([^"]+)"/);
+    if (isoMatch && isoMatch[1]) {
+      return parseIsoDuration(isoMatch[1]);
     }
-    if (diffHours > 0) {
-      return `HACE ${diffHours} ${diffHours === 1 ? "H" : "HS"}`;
-    }
-    return "RECIENTE";
+
+    return "";
   } catch {
-    return "NUEVO";
+    return "";
+  }
+}
+
+async function fetchDurationsWithApiKey(
+  videoIds: string[],
+  apiKey: string
+): Promise<Record<string, string>> {
+  try {
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds.join(",")}&key=${apiKey}`;
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    if (!res.ok) return {};
+
+    const data = await res.json();
+    const map: Record<string, string> = {};
+
+    if (Array.isArray(data.items)) {
+      for (const item of data.items) {
+        if (item?.id && item?.contentDetails?.duration) {
+          map[item.id] = parseIsoDuration(item.contentDetails.duration);
+        }
+      }
+    }
+    return map;
+  } catch {
+    return {};
   }
 }
 
 /**
- * Obtiene los últimos videos de un canal de YouTube usando su RSS Feed público.
- * No requiere API Key.
+ * Obtiene los ultimos videos de un canal de YouTube usando su RSS Feed publico
+ * y resuelve la duracion exacta en formato HH:MM:SS / MM:SS.
  *
- * @param channelId ID del canal (ej. "UC_x5XG1OV2P6uZZ5FSM9Ttw"). Si no se envía, busca en process.env.YOUTUBE_CHANNEL_ID
- * @param limit Cantidad máxima de videos a retornar (default: 6)
+ * @param channelId ID del canal. Si no se envia, busca en process.env.YOUTUBE_CHANNEL_ID
+ * @param limit Cantidad maxima de videos a retornar (default: 6)
  */
 export async function getLatestYouTubeVideosFromRSS(
   channelId?: string,
@@ -58,7 +118,6 @@ export async function getLatestYouTubeVideosFromRSS(
   try {
     const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${targetChannelId}`;
     const res = await fetch(feedUrl, {
-      // Revalida la respuesta cada 15 minutos (900 segundos) en Next.js
       next: { revalidate: 900 },
     });
 
@@ -70,7 +129,7 @@ export async function getLatestYouTubeVideosFromRSS(
     const xmlText = await res.text();
     const entryMatches = xmlText.match(/<entry[\s\S]*?<\/entry>/gi) || [];
 
-    const videos: VideoItem[] = entryMatches.slice(0, limit).map((entryXml, index) => {
+    const parsedEntries = entryMatches.slice(0, limit).map((entryXml, index) => {
       const videoIdMatch = entryXml.match(/<yt:videoId>([^<]+)<\/yt:videoId>/i);
       const titleMatch = entryXml.match(/<title[^>]*>([^<]+)<\/title>/i);
       const publishedMatch = entryXml.match(/<published>([^<]+)<\/published>/i);
@@ -80,19 +139,48 @@ export async function getLatestYouTubeVideosFromRSS(
       const rawTitle = titleMatch ? titleMatch[1].trim() : "Video sin título";
       const title = decodeXmlEntities(rawTitle);
       const published = publishedMatch ? publishedMatch[1].trim() : "";
-      
-      const rawThumb = thumbnailMatch ? thumbnailMatch[1] : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+      const rawThumb = thumbnailMatch
+        ? thumbnailMatch[1]
+        : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
       const thumb = rawThumb.replace(/^https?:\/\/i\d\.ytimg\.com\//i, "https://i.ytimg.com/");
 
       return {
         id: videoId,
         title,
-        duration: formatRelativeDate(published),
         thumb,
+        published,
         url: `https://www.youtube.com/watch?v=${videoId}`,
         tag: "EN LA MIRA",
       };
     });
+
+    const apiKey = process.env.YOUTUBE_API_KEY;
+    const videoIds = parsedEntries.map((v) => v.id).filter(Boolean);
+
+    let apiKeyDurationMap: Record<string, string> = {};
+    if (apiKey && videoIds.length > 0) {
+      apiKeyDurationMap = await fetchDurationsWithApiKey(videoIds, apiKey);
+    }
+
+    const videos: VideoItem[] = await Promise.all(
+      parsedEntries.map(async (v) => {
+        let duration = apiKeyDurationMap[v.id] || "";
+        if (!duration && v.id) {
+          duration = await fetchVideoDuration(v.id);
+        }
+
+        return {
+          id: v.id,
+          title: v.title,
+          duration: duration || "EN VIVO",
+          thumb: v.thumb,
+          url: v.url,
+          tag: v.tag,
+          publishedAt: v.published,
+        };
+      })
+    );
 
     return videos;
   } catch (error) {

@@ -7,6 +7,24 @@ export interface InstagramCardProps {
   className?: string;
 }
 
+export function InstagramReelsIcon({ className = "h-5 w-5 fill-white text-white" }: { className?: string }): React.JSX.Element {
+  return (
+    <svg
+      viewBox="0 0 122.14 122.88"
+      className={className}
+      aria-label="Video / Reels"
+      role="img"
+      fill="currentColor"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M91.51,31.02l0.07,0.11h21.6c-0.87-5.68-3.58-10.78-7.48-14.69 C100.9,11.64,94.28,8.66,87,8.66h-8.87L91.51,31.02L91.51,31.02z M81.52,31.13L68.07,8.66H38.57l13.61,22.47H81.52L81.52,31.13z M42.11,31.13L28.95,9.39c-4.81,1.16-9.12,3.65-12.51,7.05c-3.9,3.9-6.6,9.01-7.48,14.69H42.11L42.11,31.13z M113.48,39.79H8.66 v47.96c0,7.17,2.89,13.7,7.56,18.48l0.22,0.21c4.8,4.8,11.43,7.79,18.7,7.79H87c7.28,0,13.9-2.98,18.69-7.77l0.02-0.02 c4.79-4.79,7.77-11.41,7.77-18.69V39.79L113.48,39.79z M50.95,54.95l26.83,17.45c0.43,0.28,0.82,0.64,1.13,1.08 c1.22,1.77,0.77,4.2-1,5.42L51.19,94.67c-0.67,0.55-1.53,0.88-2.48,0.88c-2.16,0-3.91-1.75-3.91-3.91V58.15h0.02 c0-0.77,0.23-1.55,0.7-2.23C46.76,54.15,49.19,53.72,50.95,54.95L50.95,54.95L50.95,54.95z"
+      />
+    </svg>
+  );
+}
+
 export default function InstagramCard({
   post,
   className = "",
@@ -36,31 +54,32 @@ export default function InstagramCard({
               playsInline
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute right-3 top-3 z-10 rounded-md bg-black/70 p-1.5 text-white backdrop-blur-sm shadow">
-              <svg className="h-4 w-4 fill-white" viewBox="0 0 24 24" aria-label="Video">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
           </div>
         ) : (
-          <>
-            <Image
-              src={imageSource}
-              alt={post.headline || "Publicación de Instagram"}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              priority={false}
-            />
+          <Image
+            src={imageSource}
+            alt={post.headline || "Publicación de Instagram"}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            priority={false}
+          />
+        )}
 
-            {isCarousel && (
-              <div className="absolute right-3 top-3 z-10 rounded-md bg-black/70 p-1.5 text-white backdrop-blur-sm shadow">
-                <svg className="h-4 w-4 fill-white" viewBox="0 0 24 24" aria-label="Carrusel">
-                  <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
-                </svg>
-              </div>
-            )}
-          </>
+        {/* Indicador de Reels / Video en blanco en esquina superior derecha */}
+        {isVideo && (
+          <div className="absolute right-3.5 top-3.5 z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            <InstagramReelsIcon className="h-5 w-5 fill-white text-white" />
+          </div>
+        )}
+
+        {/* Indicador de Carrusel */}
+        {isCarousel && !isVideo && (
+          <div className="absolute right-3.5 top-3.5 z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            <svg className="h-5 w-5 fill-white text-white" viewBox="0 0 24 24" aria-label="Carrusel">
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
+            </svg>
+          </div>
         )}
 
         {/* Gradiente de fondo para contraste */}
